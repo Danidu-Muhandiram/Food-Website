@@ -26,6 +26,8 @@ left: 0;
 
 section nav ul{
 list-style: none;
+display: flex;
+align-items: center;
 }
 
 section nav ul li a{
@@ -35,6 +37,7 @@ font-size: 17px;
 font-weight: 500;
 font-family: sans-serif;
 transition: 0.1s;
+line-height: 35px;
 }
 
 section nav ul li a::after{
@@ -65,20 +68,26 @@ section nav .logo img{
 }
 
 section nav .icon i{
-    font-size: 18px;
-    margin: 0 5px;
+    font-size: 20px;
+    margin: 0 6px;
     color: black;
+    line-height: 37px;
+    cursor: pointer;
 }
 
 section nav .icon i:hover{
     color: #F88A22;
 }
 
+section nav .icon{
+    margin-right: -95px;
+}
+
 /*Login and Sign Up button in nav bar*/
 
 section nav .navButtons button{
-    width: 130px;
-    height: 40px;
+    width: 105px;
+    height: 37px;
     background-color: #F88A22;
     background-image: linear-gradient(1deg, #e6811c, #F88A22 99%);
     background-size: calc(100% + 20px) calc(100% + 20px);
@@ -93,7 +102,7 @@ section nav .navButtons button{
     font-weight: 500;
     font-family: sans-serif;
     appearance: none;
-    line-height: 1.5;
+    line-height: 1.4;
     padding: 6px 20px;
     position: relative;
     text-align: center;
@@ -102,10 +111,17 @@ section nav .navButtons button{
     color: black;
     cursor: pointer;
     border-radius: 100PX;
+    margin-right: 3px;
 }
+
+section nav .navButtons{
+    margin-right: -40px;
+    display: flex;
+    align-items: center;
+    line-height: 37px;
+}
+
 
 section nav .navButtons button:hover{
-    background: blue;
+    background: #F88A22;
 }
-
-
