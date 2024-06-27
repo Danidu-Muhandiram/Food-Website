@@ -125,3 +125,36 @@ section nav .navButtons{
 section nav .navButtons button:hover{
     background: #F88A22;
 }
+
+section .main{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+    top: 130px;
+}
+
+section .main .mainText h1 {
+    font-size: 60px;
+    position: relative;
+    top: -190px;
+    left: 70px;
+}
+
+section .mainP p {
+    width: 650px;
+    text-align: justify;
+    position: relative;
+    left: 70px;
+    top: -230px;
+    line-height: 22px; 
+}
+
+section .main img{
+    width: 650px;
+    position: relative;
+    left: -10px;
+}
+
+
+    
