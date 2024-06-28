@@ -1,6 +1,7 @@
 *{
 padding:0;
 margin: 0;
+font-family: sans-serif;
 }
 
 html{
@@ -54,7 +55,6 @@ text-decoration: none;
 color: black;
 font-size: 17px;
 font-weight: 500;
-font-family: sans-serif;
 transition: 0.1s;
 line-height: 35px;
 }
@@ -104,33 +104,55 @@ section nav .icon{
 
 /*Login and Sign Up button in nav bar*/
 
+sectionnav .navButtons{
+    display: flex;
+    gap: 20px;
+}
+
 section nav .navButtons button{
-    width: 105px;
-    height: 37px;
+    height: 35px;
     background-color: #F88A22;
-    background-image: linear-gradient(1deg, #e6811c, #F88A22 99%);
-    background-size: calc(100% + 20px) calc(100% + 20px);
     align-items: center;
     justify-content: center;
-    border:none;
-    border-radius: 100px;
+    border: 2px solid transparent;
+    border-radius: 50px;
     border-width: 0;
     box-shadow: none;
-    box-sizing: border-box;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 500;
-    font-family: sans-serif;
-    appearance: none;
     line-height: 1.4;
-    padding: 6px 20px;
+    padding: 7px 16px;
     position: relative;
     text-align: center;
     text-decoration: none;
-    transition: background-color 0.3s, box-shadow 0.3s;
     color: black;
     cursor: pointer;
-    border-radius: 100PX;
     margin-right: 3px;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+section nav .navButtons .loginButton{
+    background-color: transparent;
+    color: #F88A22;
+    border: 2px solid #F88A22;
+}
+
+section nav .navButtons .loginButton:hover{
+    background-color: #F88A22;
+    color: white;
+}
+
+section nav .navButtons .signupButton{
+    background-color:#F88A22;
+    color: white;
+    border: none;
+}
+
+section nav .navButtons .signupButton:hover{
+    background-color: #e67a00;
 }
 
 section nav .navButtons{
@@ -138,11 +160,6 @@ section nav .navButtons{
     display: flex;
     align-items: center;
     line-height: 37px;
-}
-
-
-section nav .navButtons button:hover{
-    background: #F88A22;
 }
 
 section .main{
@@ -159,7 +176,6 @@ section .main .mainText h1 {
     top: -125px;
     left: 80px;
     line-height: 75px;
-    font-family: sans-serif;
     font-weight: 600;
 }
 
@@ -176,7 +192,6 @@ section .mainP p {
     top: -120px;
     line-height: 22px; 
     font-size: 20px;
-    font-family: sans-serif;
 }
 
 section .main img{
@@ -186,5 +201,40 @@ section .main img{
     top: -24px;
 }
 
+section .homeButtons button{
+    width: 130px;
+    height: 40px;
+    background-color: #F88A22;
+    align-items: center;
+    justify-content: center;
+    border:none;
+    border-radius: 18.5px;
+    border-width: 0;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    padding: 6px 20px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    margin-right: 3px;
+    font-weight: 400;
+    overflow: hidden;
+    transition: .5s ease;
+}
 
+section .homeButtons button:hover{
+    background-color: #ff9a34;
+}    
+    
+
+section .homeButtons{
+    position: relative;
+    top: -90px;
+    left: 80px;
+}
     
