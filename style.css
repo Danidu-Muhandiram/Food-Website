@@ -32,7 +32,7 @@ section::before{
 
 }
 
-/*Navigation Bar CSS*/
+/*Navigation Bar*/
 section nav{
 display: flex;
 justify-content: space-around;
@@ -248,3 +248,4 @@ section .homeButtons{
     left: 80px;
 }
     
+
