@@ -42,6 +42,7 @@ box-shadow:  0 0 10px rgba(0,0,0,0.5);
 position: fixed;
 right: 0;
 left: 0;
+z-index: 1;
 }
 
 section nav ul{
@@ -248,4 +249,12 @@ section .homeButtons{
     left: 80px;
 }
     
+/*About CSS*/
 
+.about{
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    padding: 50px;
+   
+}
