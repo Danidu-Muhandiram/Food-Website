@@ -309,8 +309,8 @@ section .homeButtons{
 }
 
 .about .textContent {
-    margin-left: 50px; /* Adjust the space between the image and the text content */
-    flex-grow: 1; /* Allow the text content to grow and fill the remaining space */
+    margin-left: 50px;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -322,7 +322,7 @@ section .homeButtons{
     padding: 10px;
     background: linear-gradient(135deg, rgba(248, 138, 34, 0.1), rgba(255, 204, 51, 0.1));
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.08);
     text-align: center;
     margin: 20px auto;
     margin-left: 0px;
@@ -340,12 +340,16 @@ section .homeButtons{
 }
 
 .about .textContent h1 {
-    color: #F88A22;
-    font-size: 70px;
+    color: black;
+    font-size: 55px;
     font-weight: 600;
     padding-top: 10px;
     white-space: nowrap;
-    margin-top: -30px;
+    margin-top: -20px;
+}
+
+.about .textContent h1 span {
+    color: #F88A22;
 }
 
 .about .aboutParagraph {
@@ -353,4 +357,21 @@ section .homeButtons{
     margin-top: 20px;
     font-size: 20px;
     text-align: justify;
+}
+
+.about .aboutIcons img{
+    width: 60px;
+    mask-border-width: 2px;
+    background-color:#f889223a;
+    border-radius: 30px;
+    padding: 35px;
+}
+
+.about .aboutIcons{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    margin-left: 640px; 
+    top: 350px;
+    gap: 40px;
 }
