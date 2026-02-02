@@ -1,36 +1,33 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: #f97316;
-    /* Orange-500 */
+    --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
+
+    --color-primary: #FF4D00;
+    /* Vibrant Orange */
     --color-primary-foreground: #ffffff;
 
-    --color-secondary: #0f172a;
-    /* Slate-900 */
+    --color-secondary: #0F172A;
+    /* Slate 900 */
     --color-secondary-foreground: #ffffff;
 
-    --color-accent: #f1f5f9;
-    /* Slate-100 */
-    --color-accent-foreground: #0f172a;
-
-    --color-destructive: #ef4444;
-    /* Red-500 */
-    --color-destructive-foreground: #ffffff;
+    --color-accent: #FFD700;
+    /* Gold/Yellow for badges/stars */
+    --color-accent-foreground: #0F172A;
 
     --color-background: #ffffff;
-    --color-foreground: #020617;
-    /* Slate-950 */
+    --color-foreground: #0F172A;
+
+    --color-muted: #F1F5F9;
+    --color-muted-foreground: #64748B;
 
     --radius-lg: 0.5rem;
     --radius-md: calc(0.5rem - 2px);
     --radius-sm: calc(0.5rem - 4px);
-
-    --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Custom utilities if needed */
 @layer utilities {
-    .container-centered {
-        @apply container mx-auto px-4;
+    .text-shadow-sm {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
     }
 }
