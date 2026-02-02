@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #f97316;
+    /* Orange-500 */
+    --color-primary-foreground: #ffffff;
+
+    --color-secondary: #0f172a;
+    /* Slate-900 */
+    --color-secondary-foreground: #ffffff;
+
+    --color-accent: #f1f5f9;
+    /* Slate-100 */
+    --color-accent-foreground: #0f172a;
+
+    --color-destructive: #ef4444;
+    /* Red-500 */
+    --color-destructive-foreground: #ffffff;
+
+    --color-background: #ffffff;
+    --color-foreground: #020617;
+    /* Slate-950 */
+
+    --radius-lg: 0.5rem;
+    --radius-md: calc(0.5rem - 2px);
+    --radius-sm: calc(0.5rem - 4px);
+
+    --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom utilities if needed */
+@layer utilities {
+    .container-centered {
+        @apply container mx-auto px-4;
+    }
+}
