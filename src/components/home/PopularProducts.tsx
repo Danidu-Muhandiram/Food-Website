@@ -151,20 +151,20 @@ export function PopularProducts() {
                                     </div>
                                 </div>
 
-                                <h3 className="font-bold text-slate-900 text-base leading-tight line-clamp-2 min-h-[2.5rem] group-hover:text-[#E85C24] transition-colors">
+                                <h3 className="font-bold text-slate-700 text-base leading-tight line-clamp-2 min-h-[2.5rem] group-hover:text-[#E85C24] transition-colors">
                                     {product.name}
                                 </h3>
 
                                 <div className="pt-2 mt-auto flex items-center justify-between">
                                     <div className="flex flex-col">
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-xl font-black text-slate-900">${product.price.toFixed(2)}</span>
+                                            <span className="text-xl font-black text-[#E85C24]">${product.price.toFixed(2)}</span>
                                             {product.originalPrice && (
                                                 <span className="text-xs font-bold text-slate-400 line-through">${product.originalPrice.toFixed(2)}</span>
                                             )}
                                         </div>
                                     </div>
-                                    <button className="w-9 h-9 rounded-full bg-slate-900 text-white border border-slate-900 flex items-center justify-center hover:bg-[#E85C24] hover:border-[#E85C24] hover:scale-110 transition-all duration-300 shadow-md">
+                                    <button className="w-9 h-9 rounded-full bg-white text-slate-900 border border-slate-200 flex items-center justify-center hover:bg-[#E85C24] hover:border-[#E85C24] hover:text-white hover:scale-110 transition-all duration-300 shadow-md">
                                         <ShoppingCart className="w-4 h-4" />
                                     </button>
                                 </div>
