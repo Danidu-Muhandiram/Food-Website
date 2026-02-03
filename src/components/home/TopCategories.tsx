@@ -1,20 +1,34 @@
 "use client"
 
+import { useRef } from "react"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 // Categories Data details
 const CATEGORIES = [
-    { id: "dog", name: "Domestic Dog", image: "/images/cat-dog.png" },
-    { id: "cat", name: "Super Cat", image: "/images/cat-cat.png" },
-    { id: "dog-super", name: "Super Dog", image: "/images/cat-dog.png" }, // Reusing dog image for demo or I should generate another one? I'll reuse or use a variant. Actually the user wants "Super Dog" and "Domestic Dog". I have one dog image. I'll just reuse it or maybe mirror it if I could (CSS). Let's just reuse for now.
-    { id: "bird", name: "Local Bird", image: "/images/cat-bird.png" },
-    { id: "rabbit", name: "Rabbit", image: "/images/cat-rabbit.png" },
-    { id: "fish", name: "Gold Fish", image: "/images/cat-fish.png" },
+    { id: "dog-food", name: "Dog Food", image: "/images/cat-dog.png" },
+    { id: "cat-food", name: "Cat Food", image: "/images/cat-cat.png" },
+    { id: "bird-food", name: "Bird Food", image: "/images/cat-bird.png" },
+    { id: "fish-food", name: "Fish Food", image: "/images/cat-fish.png" },
+    { id: "rabbit-food", name: "Rabbit Food", image: "/images/cat-rabbit.png" },
+    { id: "reptile-food", name: "Reptile Food", image: "/images/cat-dog.png" },
 ]
 
 export function TopCategories() {
+    const scrollContainerRef = useRef<HTMLDivElement>(null)
+
+    const scroll = (direction: 'left' | 'right') => {
+        if (scrollContainerRef.current) {
+            const scrollAmount = 320 // Approx card width + gap
+            const currentScroll = scrollContainerRef.current.scrollLeft
+            scrollContainerRef.current.scrollTo({
+                left: direction === 'left' ? currentScroll - scrollAmount : currentScroll + scrollAmount,
+                behavior: 'smooth'
+            })
+        }
+    }
+
     return (
         <section className="py-8 md:py-12 bg-[#FFD600] relative overflow-hidden">
 
@@ -35,19 +49,45 @@ export function TopCategories() {
                             Pet Product Category
                         </h2>
                         <p className="text-slate-800 text-sm md:text-base lg:text-base leading-relaxed opacity-80 line-clamp-2 md:line-clamp-none">
-                            Discover a world of premium supplies for your beloved companions. From nutritious treats to playful toys, we have everything your pets need to thrive.
+                            Discover a world of premium supplies for your beloved companions. From nutritious feasts to engaging toys, we have everything your pets need to thrive.
                         </p>
                     </div>
-                    <Button className="bg-slate-900 hover:bg-slate-800 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base whitespace-nowrap">
-                        See All Category
-                        <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
+
+                    <div className="flex items-center gap-3">
+                        {/* Scroll Arrows */}
+                        <div className="flex items-center gap-2 mr-2">
+                            <Button
+                                onClick={() => scroll('left')}
+                                variant="outline"
+                                size="icon"
+                                className="w-10 h-10 rounded-full bg-white/20 border-2 border-slate-900/10 hover:bg-white/40 hover:border-slate-900/30 text-slate-900 backdrop-blur-sm transition-all"
+                            >
+                                <ChevronLeft className="w-5 h-5" />
+                            </Button>
+                            <Button
+                                onClick={() => scroll('right')}
+                                variant="outline"
+                                size="icon"
+                                className="w-10 h-10 rounded-full bg-white/20 border-2 border-slate-900/10 hover:bg-white/40 hover:border-slate-900/30 text-slate-900 backdrop-blur-sm transition-all"
+                            >
+                                <ChevronRight className="w-5 h-5" />
+                            </Button>
+                        </div>
+
+                        <Button className="bg-slate-900 hover:bg-slate-800 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base whitespace-nowrap">
+                            See All Category
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                        </Button>
+                    </div>
                 </div>
 
-                {/* Categories Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-5">
+                {/* Categories Grid - Horizontal Scroll */}
+                <div
+                    ref={scrollContainerRef}
+                    className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden -mx-4 px-4 md:mx-0 md:px-0"
+                >
                     {CATEGORIES.map((cat) => (
-                        <div key={cat.id} className="group bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 h-[180px] md:h-[220px] lg:h-[200px] xl:h-[240px] relative overflow-hidden hover:shadow-xl hover:shadow-orange-900/10 transition-all duration-500 hover:-translate-y-2">
+                        <div key={cat.id} className="min-w-[280px] md:min-w-[320px] lg:min-w-[300px] flex-shrink-0 snap-center group bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 h-[240px] md:h-[220px] relative overflow-hidden hover:shadow-xl hover:shadow-orange-900/10 transition-all duration-500 hover:-translate-y-2">
 
                             {/* Category Name */}
                             <h3 className="text-xl md:text-2xl font-black text-slate-900 relative z-10 group-hover:text-[#E85C24] transition-colors">

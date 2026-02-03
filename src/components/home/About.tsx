@@ -1,6 +1,6 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, ArrowRight } from "lucide-react"
+import { ArrowRight, PawPrint } from "lucide-react"
 
 export function About() {
     return (
@@ -56,18 +56,18 @@ export function About() {
                         </div>
 
                         <p className="text-slate-600 text-lg leading-relaxed">
-                            Until one has loved an animal, a part of one's soul remains unawakened. We believe in easy access to things that are good for our mind, body and spirit. With a clever offering, superb support and a secure checkout you're in good hands.
+                            We’re more than a store, we’re a community of pet enthusiasts dedicated to the wellbeing of your companions. From nutritious feasts to engaging toys, we handpick every item to ensure your pets live their best, happiest lives. We are committed to quality, safety, and the joy of pet parenting.
                         </p>
 
                         <ul className="space-y-4 pt-4">
                             {[
-                                "Over 10 years of experience",
-                                "20 talented vets ready to help you",
-                                "High-quality products only"
+                                "Hand-picked premium nutrition",
+                                "Expert care advice & support",
+                                "Trusted by thousands of pet parents"
                             ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-3 text-slate-800 font-bold justify-center md:justify-start">
-                                    <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center text-white shadow-sm">
-                                        <CheckCircle2 className="w-4 h-4" />
+                                <li key={i} className="flex items-center gap-4 text-slate-800 font-bold justify-center md:justify-start">
+                                    <div className="min-w-10 h-10 rounded-full bg-[#FFD600] flex items-center justify-center text-slate-900 shadow-sm transform rotate-[-10deg]">
+                                        <PawPrint className="w-5 h-5" />
                                     </div>
                                     {item}
                                 </li>
