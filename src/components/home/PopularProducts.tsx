@@ -22,7 +22,7 @@ const PRODUCTS = [
     {
         id: 2,
         name: "Meow Mix Tender Centers Dry Cat Food, Salmon",
-        category: "Dog Food",
+        category: "Cat Food",
         price: 30.20,
         rating: 4.9,
         image: "/images/new-tin.png",
