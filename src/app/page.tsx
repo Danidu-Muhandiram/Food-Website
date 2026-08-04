@@ -4,6 +4,7 @@ import { About } from "@/components/home/About";
 import { TopCategories } from "@/components/home/TopCategories";
 import { PopularProducts } from "@/components/home/PopularProducts";
 import { Services } from "@/components/home/Services";
+import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <TopCategories />
       <PopularProducts />
       <Services />
+      <Footer />
     </main>
   );
 }

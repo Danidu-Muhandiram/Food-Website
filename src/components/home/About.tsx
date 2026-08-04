@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, PawPrint } from "lucide-react"
 
@@ -75,8 +76,10 @@ export function About() {
                         </ul>
 
                         <div className="pt-6">
-                            <Button className="bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
-                                More About Us <ArrowRight className="ml-2 w-4 h-4" />
+                            <Button asChild className="bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
+                                <Link href="/about">
+                                    More About Us <ArrowRight className="ml-2 w-4 h-4" />
+                                </Link>
                             </Button>
                         </div>
                     </div>
