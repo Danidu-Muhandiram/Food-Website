@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Facebook, Instagram, Twitter, Heart, Mail, Phone, MapPin } from "lucide-react"
 
@@ -58,11 +60,6 @@ export function Footer() {
                                     Our Services
                                 </Link>
                             </li>
-                            <li>
-                                <Link href="/contact" className="hover:text-primary hover:translate-x-1 transition-all inline-block">
-                                    Contact
-                                </Link>
-                            </li>
                         </ul>
                     </div>
 
@@ -101,26 +98,29 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    {/* Contact Info */}
-                    <div>
-                        <h4 className="text-lg font-bold text-white mb-6 relative inline-block">
-                            Contact Info
+                    {/* Newsletter Subscription */}
+                    <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-white mb-2 relative inline-block">
+                            Subscribe
                             <span className="absolute bottom-0 left-0 w-8 h-[2px] bg-primary"></span>
                         </h4>
-                        <ul className="space-y-4 text-sm text-white/70">
-                            <li className="flex items-start gap-3">
-                                <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                                <span>123 Paw Print Lane, Animal City, AC 45678</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Phone className="w-5 h-5 text-primary flex-shrink-0" />
-                                <span>+1 (555) 123-4567</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <Mail className="w-5 h-5 text-primary flex-shrink-0" />
-                                <span>hello@petshop.com</span>
-                            </li>
-                        </ul>
+                        <p className="text-white/70 text-sm leading-relaxed">
+                            Subscribe to our newsletter to receive the latest updates, special deals, and pet care tips.
+                        </p>
+                        <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+                            <input 
+                                type="email" 
+                                placeholder="Enter your email" 
+                                className="w-full h-10 px-4 rounded-xl bg-white/10 text-white placeholder-white/40 border border-white/20 text-sm focus:outline-none focus:border-accent"
+                                required
+                            />
+                            <button 
+                                type="submit" 
+                                className="w-full h-10 bg-primary hover:bg-primary/95 text-white font-bold rounded-xl text-xs transition-all shadow-md cursor-pointer"
+                            >
+                                Subscribe Now
+                            </button>
+                        </form>
                     </div>
 
                 </div>

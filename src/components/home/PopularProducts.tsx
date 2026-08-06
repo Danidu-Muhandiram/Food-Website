@@ -3,7 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Star, ShoppingCart, ArrowRight } from "lucide-react"
+import Link from "next/link"
+import { Star, ArrowRight } from "lucide-react"
 
 // Product Data
 const CATEGORIES = ["All Food", "Dog Food", "Bird Food", "Rabbit Food", "Fish Food", "Cat Food"]
@@ -164,9 +165,9 @@ export function PopularProducts() {
                                             )}
                                         </div>
                                     </div>
-                                    <button className="w-9 h-9 rounded-full bg-white text-slate-900 border border-slate-200 flex items-center justify-center hover:bg-[#E85C24] hover:border-[#E85C24] hover:text-white hover:scale-110 transition-all duration-300 shadow-md">
-                                        <ShoppingCart className="w-4 h-4" />
-                                    </button>
+                                    <Link href="/shop" className="w-9 h-9 rounded-full bg-white text-slate-900 border border-slate-200 flex items-center justify-center hover:bg-[#E85C24] hover:border-[#E85C24] hover:text-white hover:scale-110 transition-all duration-300 shadow-md">
+                                        <ArrowRight className="w-4 h-4" />
+                                    </Link>
                                 </div>
                             </div>
                         </div>
