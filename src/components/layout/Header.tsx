@@ -83,6 +83,9 @@ export function Header() {
                         <Link href="/services" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
                             Services
                         </Link>
+                        <Link href="/contact" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
+                            Contact
+                        </Link>
                     </nav>
 
                     {/* Icons Actions (Search, Cart, User - Keep Icons) */}
@@ -193,6 +196,9 @@ export function Header() {
                         </Link>
                         <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
                             Our Services
+                        </Link>
+                        <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
+                            Contact
                         </Link>
                     </nav>
 
