@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, Suspense } from "react"
+import { useSearchParams } from "next/navigation"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
@@ -68,9 +69,17 @@ const PRODUCTS = [
 
 const CATEGORIES = ["All", "Dog Food", "Cat Food", "Bird Food", "Rabbit Food", "Fish Food"]
 
-export default function ShopPage() {
+function ShopPageContent() {
+    const searchParams = useSearchParams()
+    const urlQuery = searchParams.get("query") || ""
+    
     const [selectedCategory, setSelectedCategory] = useState("All")
-    const [searchQuery, setSearchQuery] = useState("")
+    const [searchQuery, setSearchQuery] = useState(urlQuery)
+
+    // Sync state with URL parameter if it changes
+    useEffect(() => {
+        setSearchQuery(urlQuery)
+    }, [urlQuery])
 
     const filteredProducts = PRODUCTS.filter(product => {
         const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
@@ -210,5 +219,17 @@ export default function ShopPage() {
 
             <Footer />
         </main>
+    )
+}
+
+export default function ShopPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center text-slate-500">
+                Loading products...
+            </div>
+        }>
+            <ShopPageContent />
+        </Suspense>
     )
 }

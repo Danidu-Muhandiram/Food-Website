@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { 
     Search, 
     ShoppingBag, 
@@ -19,8 +20,11 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
 export function Header() {
+    const router = useRouter()
+
     // UI States
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+    const [searchOpen, setSearchOpen] = useState(false)
     const [authOpen, setAuthOpen] = useState(false)
     const [authModalOpen, setAuthModalOpen] = useState(false)
     const [authMode, setAuthMode] = useState<"login" | "signup">("login")
@@ -31,11 +35,15 @@ export function Header() {
     const [password, setPassword] = useState("")
     const [petName, setPetName] = useState("")
 
-    // ESC key listener to close auth modal
+    // Search query state
+    const [searchQuery, setSearchQuery] = useState("")
+
+    // ESC key listener to close auth modal or search bar
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 setAuthModalOpen(false)
+                setSearchOpen(false)
             }
         }
         window.addEventListener("keydown", handleKeyDown)
@@ -55,6 +63,15 @@ export function Header() {
     const handleLogout = () => {
         setIsLoggedIn(false)
         setAuthOpen(false)
+    }
+
+    const handleSearchSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        if (searchQuery.trim()) {
+            router.push(`/shop?query=${encodeURIComponent(searchQuery.trim())}`)
+            setSearchOpen(false)
+            setSearchQuery("")
+        }
     }
 
     return (
@@ -88,13 +105,14 @@ export function Header() {
                         </Link>
                     </nav>
 
-                    {/* Icons Actions (Search, Cart, User - Keep Icons) */}
+                    {/* Icons Actions */}
                     <div className="flex items-center gap-3 md:gap-5 text-white relative z-50">
                         
-                        {/* Search Icon (Kept as decorative icon) */}
+                        {/* Search Icon Trigger */}
                         <button 
-                            className="relative text-white hover:text-accent transition-colors p-2 focus:outline-none cursor-default"
-                            aria-label="Search Icon"
+                            onClick={() => { setSearchOpen(!searchOpen); setMobileMenuOpen(false); setAuthOpen(false); }}
+                            className="hover:text-accent transition-colors p-2 focus:outline-none cursor-pointer"
+                            aria-label="Toggle Search Bar"
                         >
                             <Search className="w-5 h-5" />
                         </button>
@@ -179,9 +197,33 @@ export function Header() {
 
                     </div>
                 </div>
+
+                {/* Normal Search Bar Overlay (Slides down without lists) */}
+                {searchOpen && (
+                    <div className="absolute top-full left-0 w-full bg-secondary/95 backdrop-blur-md border-y border-white/10 p-4 animate-in slide-in-from-top-4 duration-300">
+                        <form onSubmit={handleSearchSubmit} className="container mx-auto px-4 md:px-8 max-w-2xl relative">
+                            <input 
+                                type="text"
+                                placeholder="Search our premium foods and accessories..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full h-12 bg-white/10 text-white placeholder-white/50 border border-white/20 rounded-2xl pl-12 pr-12 text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+                                autoFocus
+                            />
+                            <Search className="absolute left-7 top-4 text-white/50 w-5 h-5" />
+                            <button 
+                                type="button" 
+                                onClick={() => setSearchOpen(false)}
+                                className="absolute right-7 top-3.5 text-white/50 hover:text-white p-1 cursor-pointer"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+                        </form>
+                    </div>
+                )}
             </header>
 
-            {/* Mobile Navigation Panel Drawer (No Contact Link) */}
+            {/* Mobile Navigation Panel Drawer */}
             {mobileMenuOpen && (
                 <div className="fixed inset-0 z-40 bg-secondary pt-24 px-6 flex flex-col justify-between animate-in slide-in-from-right duration-300">
                     <nav className="flex flex-col gap-6 text-white text-2xl font-black">
