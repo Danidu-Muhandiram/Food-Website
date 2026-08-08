@@ -117,13 +117,14 @@ export function Header() {
                             <Search className="w-5 h-5" />
                         </button>
 
-                        {/* Cart Shopping Bag Icon (Kept as decorative icon) */}
-                        <button 
-                            className="relative text-white hover:text-accent transition-colors p-2 focus:outline-none cursor-default"
-                            aria-label="Cart Icon"
+                        {/* Cart Shopping Bag Link */}
+                        <Link 
+                            href="/cart"
+                            className="relative text-white hover:text-accent transition-colors p-2 focus:outline-none flex items-center justify-center cursor-pointer"
+                            aria-label="View Cart"
                         >
                             <ShoppingBag className="w-5 h-5" />
-                        </button>
+                        </Link>
 
                         {/* Account User Trigger */}
                         <div className="relative">
