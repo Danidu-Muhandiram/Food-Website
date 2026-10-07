@@ -4,7 +4,7 @@ import { Phone, ArrowRight, Star } from "lucide-react"
 
 export function Hero() {
     return (
-        <section className="relative w-full min-h-screen bg-primary overflow-hidden flex flex-col justify-center pb-20 pt-28">
+        <section className="relative w-full min-h-screen lg:h-screen lg:max-h-[820px] bg-primary overflow-hidden flex flex-col justify-center pb-12 pt-24 lg:py-0">
 
             {/* 1. Background Pattern (Subtle Dots) */}
             <div className="absolute inset-0 opacity-10 pointer-events-none"
@@ -18,7 +18,7 @@ export function Hero() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center h-full">
 
                     {/* Left Content (5 Columns) - Tighter, Balanced */}
-                    <div className="md:col-span-6 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-8 animate-in slide-in-from-left duration-700 fade-in">
+                    <div className="md:col-span-6 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-5 lg:space-y-6 animate-in slide-in-from-left duration-700 fade-in">
 
                         {/* Badge */}
                         <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 text-white text-xs font-bold tracking-wide shadow-sm">
@@ -27,7 +27,7 @@ export function Hero() {
                         </div>
 
                         {/* Headline - Big & Tight */}
-                        <h1 className="text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter drop-shadow-sm">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter drop-shadow-sm">
                             keep your <br />
                             <span className="text-secondary relative whitespace-nowrap">
                                 best friend
@@ -40,26 +40,26 @@ export function Hero() {
                         </h1>
 
                         {/* Subtext */}
-                        <p className="text-white/90 text-lg md:text-xl font-medium max-w-md leading-relaxed selection:bg-accent selection:text-accent-foreground">
+                        <p className="text-white/90 text-base md:text-lg font-medium max-w-md leading-relaxed selection:bg-accent selection:text-accent-foreground">
                             Premium nutrition for your furry companions. Made with real ingredients and a whole lot of love.
                         </p>
 
                         {/* Buttons - Row */}
-                        <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
-                            <Button className="h-14 px-10 rounded-2xl bg-secondary text-white hover:bg-secondary/90 text-lg font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
+                        <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
+                            <Button className="h-12 px-8 rounded-2xl bg-secondary text-white hover:bg-secondary/95 text-base font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
                                 Shop Now
                             </Button>
 
                             <div className="flex items-center gap-3 text-white font-bold group cursor-pointer hover:opacity-80 transition-opacity">
-                                <div className="w-12 h-12 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                    <Phone className="w-5 h-5 fill-current" />
+                                <div className="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                    <Phone className="w-4.5 h-4.5 fill-current" />
                                 </div>
-                                <span className="text-lg">Schedule a call</span>
+                                <span className="text-base">Schedule a call</span>
                             </div>
                         </div>
 
                         {/* Coupon / Small Element*/}
-                        <div className="hidden md:flex items-center gap-4 pt-8 opacity-90">
+                        <div className="hidden md:flex items-center gap-4 pt-4 opacity-90">
                             <div className="flex -space-x-3">
                                 <div className="w-10 h-10 rounded-full bg-slate-200 border-2 border-primary flex items-center justify-center text-[10px] font-bold text-secondary">A+</div>
                                 <div className="w-10 h-10 rounded-full bg-slate-100 border-2 border-primary flex items-center justify-center text-[10px] font-bold text-secondary">5★</div>
@@ -71,7 +71,7 @@ export function Hero() {
                     </div>
 
                     {/* Right Content (7 Columns) - Anchored & Dynamic */}
-                    <div className="md:col-span-6 relative h-[500px] md:h-[700px] flex items-end justify-center md:translate-x-8">
+                    <div className="md:col-span-6 relative h-[350px] md:h-[450px] lg:h-[550px] flex items-end justify-center md:translate-x-8">
 
                         {/* Organic Blob Behind */}
                         <svg className="absolute w-[140%] h-[140%] text-white/5 z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
