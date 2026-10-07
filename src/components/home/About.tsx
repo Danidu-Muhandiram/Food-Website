@@ -1,6 +1,5 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ArrowRight, PawPrint } from "lucide-react"
 
 export function About() {
@@ -42,8 +41,8 @@ export function About() {
                     </div>
 
                     {/* Right Column: Text Content */}
-                    <div className="w-full md:w-1/2 space-y-8 text-center md:text-left">
-                        <div className="space-y-4">
+                    <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
+                        <div className="space-y-3">
                             <h2 className="text-secondary font-bold tracking-widest uppercase text-sm">About Us</h2>
                             <h3 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                                 We're just like you, <br />
@@ -56,11 +55,11 @@ export function About() {
                             </h3>
                         </div>
 
-                        <p className="text-slate-600 text-lg leading-relaxed">
+                        <p className="text-slate-600 text-base md:text-lg leading-relaxed">
                             We’re more than a store, we’re a community of pet enthusiasts dedicated to the wellbeing of your companions. From nutritious feasts to engaging toys, we handpick every item to ensure your pets live their best, happiest lives. We are committed to quality, safety, and the joy of pet parenting.
                         </p>
 
-                        <ul className="space-y-4 pt-4">
+                        <ul className="space-y-3 pt-1">
                             {[
                                 "Hand-picked premium nutrition",
                                 "Expert care advice & support",
@@ -75,12 +74,14 @@ export function About() {
                             ))}
                         </ul>
 
-                        <div className="pt-6">
-                            <Button asChild className="bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl transition-all">
-                                <Link href="/about">
-                                    More About Us <ArrowRight className="ml-2 w-4 h-4" />
-                                </Link>
-                            </Button>
+                        <div className="pt-2">
+                            <Link
+                                href="/about"
+                                className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all group"
+                            >
+                                <span>More About Us</span>
+                                <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                            </Link>
                         </div>
                     </div>
 
