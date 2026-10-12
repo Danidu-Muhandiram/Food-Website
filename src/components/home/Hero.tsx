@@ -1,110 +1,59 @@
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Phone, ArrowRight, Star } from "lucide-react"
+import Link from "next/link"
+import { ArrowRight, Heart, PawPrint } from "lucide-react"
 
 export function Hero() {
     return (
-        <section className="relative w-full min-h-screen lg:h-screen lg:max-h-[820px] bg-primary overflow-hidden flex flex-col justify-center pb-12 pt-24 lg:py-0">
-
-            {/* 1. Background Pattern (Subtle Dots) */}
-            <div className="absolute inset-0 opacity-10 pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(circle, #fff 2px, transparent 2px)', backgroundSize: '40px 40px' }}>
-            </div>
-
-            {/* 2. Organic Background Shapes - Anchored for balance */}
-            <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-white/10 to-transparent rounded-full blur-3xl translate-x-1/3 -translate-y-1/4 pointer-events-none"></div>
-
-            <div className="container mx-auto px-4 md:px-8 relative z-10 h-full">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center h-full">
-
-                    {/* Left Content (5 Columns) - Tighter, Balanced */}
-                    <div className="md:col-span-6 flex flex-col justify-center items-center md:items-start text-center md:text-left space-y-5 lg:space-y-6 animate-in slide-in-from-left duration-700 fade-in">
-
-                        {/* Badge */}
-                        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 text-white text-xs font-bold tracking-wide shadow-sm">
-                            <Star className="w-3.5 h-3.5 text-accent fill-accent" />
-                            <span>#1 RATED PET FOOD</span>
+        <section className="relative isolate overflow-hidden bg-primary pb-10 pt-24 md:flex md:min-h-svh md:items-center md:pb-8 md:pt-24">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+            <div className="container relative mx-auto w-full px-4 md:px-8">
+                <div className="grid items-center gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
+                    <div className="relative z-20 flex flex-col items-start">
+                        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-bold tracking-wide text-white">
+                            <PawPrint aria-hidden="true" className="h-4 w-4 text-accent" />
+                            A LITTLE LOVE IN EVERY BOWL
                         </div>
-
-                        {/* Headline - Big & Tight */}
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[0.9] tracking-tighter drop-shadow-sm">
-                            keep your <br />
-                            <span className="text-secondary relative whitespace-nowrap">
-                                best friend
-                                {/* Underline SVG */}
-                                <svg className="absolute w-full h-4 -bottom-1 left-0 text-white" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                    <path d="M0 5 Q 50 12 100 5" stroke="currentColor" strokeWidth="4" fill="none" opacity="0.8" />
-                                </svg>
-                            </span> <br />
-                            healthy.
+                        <h1 className="text-[clamp(2.5rem,4.4vw,3.75rem)] font-black leading-[1.04] tracking-[-0.045em] text-white">
+                            Keep your<br /><span className="text-secondary">best friend</span><br />healthy.
                         </h1>
-
-                        {/* Subtext */}
-                        <p className="text-white/90 text-base md:text-lg font-medium max-w-md leading-relaxed selection:bg-accent selection:text-accent-foreground">
-                            Premium nutrition for your furry companions. Made with real ingredients and a whole lot of love.
+                        <p className="mt-4 max-w-sm text-lg leading-relaxed text-white/95">
+                            Real ingredients. Balanced nutrition.<br className="hidden lg:block" /> More happy tail wags.
                         </p>
-
-                        {/* Buttons - Row */}
-                        <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
-                            <Button className="h-12 px-8 rounded-2xl bg-secondary text-white hover:bg-secondary/95 text-base font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
-                                Shop Now
-                            </Button>
-
-                            <div className="flex items-center gap-3 text-white font-bold group cursor-pointer hover:opacity-80 transition-opacity">
-                                <div className="w-10 h-10 rounded-full bg-accent text-accent-foreground flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                    <Phone className="w-4.5 h-4.5 fill-current" />
-                                </div>
-                                <span className="text-base">Schedule a call</span>
-                            </div>
+                        <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+                            <Link href="/shop?query=dog" className="inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-5 text-base font-bold text-white shadow-lg shadow-black/10 transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                                Shop Dog Food <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                            </Link>
+                            <Link href="/shop" className="inline-flex min-h-11 items-center gap-2 text-base font-bold text-white underline decoration-white/40 underline-offset-8 hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                                Explore Our Products <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                            </Link>
                         </div>
-
-                        {/* Coupon / Small Element*/}
-                        <div className="hidden md:flex items-center gap-4 pt-4 opacity-90">
-                            <div className="flex -space-x-3">
-                                <div className="w-10 h-10 rounded-full bg-slate-200 border-2 border-primary flex items-center justify-center text-[10px] font-bold text-secondary">A+</div>
-                                <div className="w-10 h-10 rounded-full bg-slate-100 border-2 border-primary flex items-center justify-center text-[10px] font-bold text-secondary">5★</div>
-                            </div>
-                            <div className="text-xs text-white leading-tight font-medium">
-                                Trusted by <br /> <span className="font-bold text-accent text-sm">20,000+</span> Parents
-                            </div>
+                        <div className="mt-5 flex items-center gap-3 border-t border-white/20 pt-4 text-white">
+                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent text-secondary"><Heart aria-hidden="true" className="h-4 w-4" /></span>
+                            <div><p className="text-base font-bold">Good food. Happy pets.</p><p className="mt-0.5 text-sm text-white/90">For the little moments that mean everything.</p></div>
                         </div>
                     </div>
-
-                    {/* Right Content (7 Columns) - Anchored & Dynamic */}
-                    <div className="md:col-span-6 relative h-[350px] md:h-[450px] lg:h-[550px] flex items-end justify-center md:translate-x-8">
-
-                        {/* Organic Blob Behind */}
-                        <svg className="absolute w-[140%] h-[140%] text-white/5 z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="currentColor" d="M48.9,-58.6C62.8,-49.7,73.1,-34.5,76.5,-18.2C79.9,-1.9,76.3,15.5,66.5,29.3C56.7,43.2,40.7,53.5,23.5,62.8C6.3,72.1,-12.1,80.4,-28.9,76.5C-45.7,72.6,-60.9,56.5,-70.7,38.3C-80.5,20.1,-84.9,-0.2,-79.6,-18.8C-74.3,-37.4,-59.3,-54.3,-43.3,-62.4C-27.3,-70.6,-10.3,-69.9,5,-75.9C20.3,-81.8,40.6,-94.4,48.9,-58.6Z" transform="translate(100 100)" />
+                    <div className="relative mx-auto h-[360px] w-full max-w-[480px] sm:h-[400px] md:h-[clamp(320px,calc(100svh-144px),460px)] lg:mx-0 lg:translate-x-4">
+                        <div aria-hidden="true" className="absolute left-1/2 top-0 aspect-square h-full -translate-x-1/2 rounded-full bg-white/[0.08]" />
+                        <div aria-hidden="true" className="absolute bottom-12 left-1/2 h-6 w-[52%] -translate-x-1/2 rounded-[100%] bg-secondary/20 blur-xl" />
+                        <div className="absolute inset-x-8 bottom-12 top-0 sm:inset-x-12">
+                            <Image src="/images/new-dog.png" alt="Happy beagle sitting beside its food" fill sizes="(max-width: 767px) 85vw, 45vw" className="object-contain object-bottom drop-shadow-xl" priority />
+                        </div>
+                        <div aria-hidden="true" className="absolute -left-12 top-[28%] z-10 hidden -rotate-6 items-center gap-3 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-white lg:flex">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-secondary"><PawPrint className="h-5 w-5" /></span>
+                            <p className="text-base font-bold leading-snug">More happy<br />tail wags.</p>
+                        </div>
+                        <svg aria-hidden="true" className="absolute -left-1 top-[49%] hidden h-20 w-28 text-accent lg:block" viewBox="0 0 112 80" fill="none">
+                            <path d="M10 8C3 49 49 69 99 33M81 33L100 31L96 50" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-
-                        {/* Main Dog Image - Centered and Large */}
-                        <div className="relative z-10 w-full h-[90%] md:h-[95%] animate-in zoom-in-50 duration-1000 flex items-end justify-center">
-                            <Image
-                                src="/images/new-dog.png"
-                                alt="Dog"
-                                fill
-                                className="object-contain drop-shadow-2xl z-10 object-bottom"
-                                priority
-                            />
-
-                            {/* Floating Elements */}
-
-                            {/* Tin (Left Shoulder) */}
-                            <div className="absolute top-1/3 left-0 md:left-4 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-xl rotate-[-8deg] hover:rotate-0 transition-transform cursor-pointer border border-white/60 z-20 animate-bounce delay-700 duration-[3000ms]">
-                                <Image src="/images/new-tin.png" alt="Can" width={50} height={70} className="object-contain" />
+                        <Link href="/shop?query=Roasted%20Chicken" className="group absolute bottom-0 right-0 z-10 flex w-[270px] max-w-full items-center gap-3 rounded-3xl border border-white/70 bg-[#fffaf3] p-3 shadow-xl shadow-secondary/10 transition-transform motion-safe:hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary lg:-right-2">
+                            <div className="relative h-20 w-14 shrink-0"><Image src="/images/new-bag.png" alt="Roasted chicken dog food pack" fill sizes="56px" className="object-contain" /></div>
+                            <div className="flex-1 text-secondary">
+                                <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">On the menu</p>
+                                <h2 className="mt-1 text-base font-bold leading-snug">Roasted Chicken<br />Adult Dog Food</h2>
+                                <div className="mt-3 flex items-center justify-between"><span className="text-lg font-black">$26.99</span><span className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-white transition-colors group-hover:bg-primary"><ArrowRight aria-hidden="true" className="h-4 w-4" /></span></div>
                             </div>
-
-                            {/* Bag (Right Bottom) */}
-                            <div className="absolute bottom-1/4 right-0 md:right-8 bg-white/90 backdrop-blur-sm p-4 rounded-2xl shadow-xl rotate-[8deg] hover:rotate-0 transition-transform cursor-pointer border border-white/60 z-20 animate-bounce delay-200 duration-[4000ms]">
-                                <Image src="/images/new-bag.png" alt="Bag" width={65} height={85} className="object-contain" />
-                                <div className="absolute -top-3 -right-3 bg-secondary text-white text-[10px] font-black px-2 py-1 rounded-full shadow-lg">
-                                    HOT
-                                </div>
-                            </div>
-                        </div>
+                        </Link>
                     </div>
-
                 </div>
             </div>
         </section>
