@@ -34,7 +34,7 @@
 
 /* Animate inside the existing layout transforms so positioning stays intact. */
 @media (prefers-reduced-motion: no-preference) {
-    @keyframes hero-dog-float {
+    @keyframes hero-pet-float {
         0%, 100% { transform: translateY(0); }
         50% { transform: translateY(-5px); }
     }
@@ -50,8 +50,17 @@
         to { stroke-dashoffset: 0; opacity: 1; }
     }
 
-    .hero-dog-float {
-        animation: hero-dog-float 4s ease-in-out infinite;
+    .hero-pet-float {
+        animation: hero-pet-float 4s ease-in-out infinite;
+    }
+
+    @keyframes hero-content-enter {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content-enter {
+        animation: hero-content-enter 0.3s ease-out both;
     }
 
     .hero-badge-float {

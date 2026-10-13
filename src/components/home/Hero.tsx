@@ -1,14 +1,73 @@
+"use client"
+
+import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Heart, PawPrint } from "lucide-react"
+import { ArrowRight, Cat, Dog, Heart, PawPrint } from "lucide-react"
+
+const PET_VARIANTS = {
+    dog: {
+        label: "Dogs",
+        image: "/images/new-dog.png",
+        alt: "Happy beagle sitting beside its food",
+        badge: ["More happy", "tail wags."],
+        category: "Dog Food",
+        cta: "Shop Dog Food",
+        product: {
+            title: "Roasted Chicken",
+            subtitle: "Adult Dog Food",
+            image: "/images/new-bag.png",
+            price: 26.99,
+            query: "Roasted Chicken",
+        },
+    },
+    cat: {
+        label: "Cats",
+        image: "/images/hero-cat-waving.png",
+        alt: "Orange tabby cat raising a paw",
+        badge: ["More purrs.", "More joy."],
+        category: "Cat Food",
+        cta: "Shop Cat Food",
+        product: {
+            title: "Salmon Recipe",
+            subtitle: "Adult Cat Food",
+            image: "/images/hero-cat-food.png",
+            price: 30.20,
+            query: "Salmon",
+        },
+    },
+} as const
+
+const PET_TYPES = ["dog", "cat"] as const
+type PetType = typeof PET_TYPES[number]
 
 export function Hero() {
+    const [activePet, setActivePet] = useState<PetType>("dog")
+    const pet = PET_VARIANTS[activePet]
+
     return (
         <section className="relative isolate overflow-hidden bg-primary pb-10 pt-24 md:flex md:min-h-svh md:items-center md:pb-6 md:pt-22" style={{ backgroundImage: "radial-gradient(ellipse at 72% 36%, #ff762a 0%, #ff5710 42%, #ff4d00 78%)" }}>
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-soft-light" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E")` }} />
             <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-48 h-[440px] w-[440px] rounded-full border-[40px] border-white/[0.03]" />
             <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-20 h-64 w-[480px] -rotate-12 rounded-[50%] bg-white/[0.035]" />
             <div className="container relative mx-auto w-full px-4 md:px-8">
+                <div role="group" aria-label="Choose your pet type" className="relative z-30 mb-5 flex justify-end gap-2 lg:absolute lg:right-8 lg:top-0 lg:mb-0">
+                    {PET_TYPES.map(type => {
+                        const Icon = type === "dog" ? Dog : Cat
+                        return (
+                            <button
+                                key={type}
+                                type="button"
+                                aria-pressed={activePet === type}
+                                onClick={() => setActivePet(type)}
+                                className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center gap-2 rounded-2xl border text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:h-20 md:w-20 ${activePet === type ? "border-[#fffaf3] bg-[#fffaf3] text-secondary shadow-sm" : "border-white/30 bg-white/[0.06] text-white hover:border-white/60 hover:bg-white/15"}`}
+                            >
+                                <Icon aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 md:h-7 md:w-7" />
+                                <span className="leading-none">{PET_VARIANTS[type].label}</span>
+                            </button>
+                        )
+                    })}
+                </div>
                 <div className="grid items-center gap-10 md:grid-cols-2 md:gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-8">
                     <div className="relative z-20 flex flex-col items-start">
                         <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-bold tracking-wide text-white">
@@ -22,8 +81,8 @@ export function Hero() {
                             Real ingredients. Balanced nutrition.<br className="hidden lg:block" /> More happy tail wags.
                         </p>
                         <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-3">
-                            <Link href="/shop?query=dog" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-5 text-base font-bold text-white shadow-lg shadow-black/10 transition-[translate,background-color,box-shadow] duration-200 hover:bg-slate-800 hover:shadow-xl hover:shadow-black/15 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none">
-                                Shop Dog Food <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none" />
+                            <Link href={`/shop?category=${encodeURIComponent(pet.category)}`} className="group inline-flex min-h-12 min-w-[184px] items-center justify-center gap-3 rounded-2xl bg-secondary px-5 text-base font-bold text-white shadow-lg shadow-black/10 transition-[translate,background-color,box-shadow] duration-200 hover:bg-slate-800 hover:shadow-xl hover:shadow-black/15 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none">
+                                {pet.cta} <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none" />
                             </Link>
                             <Link href="/shop" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/5 px-4 text-base font-bold text-white transition-colors hover:border-white/60 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
                                 Explore Our Products <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none" />
@@ -43,11 +102,22 @@ export function Hero() {
                         </div>
                         <div aria-hidden="true" className="absolute bottom-12 left-1/2 h-8 w-[56%] -translate-x-1/2 rounded-[100%] bg-secondary/20 blur-2xl lg:left-[calc(50%-24px)]" />
                         <div className="absolute inset-x-8 bottom-12 top-0 -translate-y-3 origin-bottom scale-[1.12] sm:inset-x-12 lg:-translate-x-6">
-                            <Image src="/images/new-dog.png" alt="Happy beagle sitting beside its food" fill sizes="(max-width: 767px) 95vw, 50vw" className="hero-dog-float object-contain object-bottom drop-shadow-xl" priority />
+                            {PET_TYPES.map(type => (
+                                <div key={type} aria-hidden={activePet !== type} className={`absolute inset-0 transition-opacity duration-500 ease-out motion-reduce:transition-none ${activePet === type ? "opacity-100" : "pointer-events-none opacity-0"}`}>
+                                    <Image
+                                        src={PET_VARIANTS[type].image}
+                                        alt={PET_VARIANTS[type].alt}
+                                        fill
+                                        sizes="(max-width: 767px) 95vw, 50vw"
+                                        className={`hero-pet-float object-contain object-bottom drop-shadow-xl ${type === "cat" ? "[mask-image:linear-gradient(to_bottom,black_90%,transparent_100%)]" : ""}`}
+                                        priority
+                                    />
+                                </div>
+                            ))}
                         </div>
-                        <div aria-hidden="true" className="hero-badge-float absolute -left-24 top-[28%] z-10 hidden -translate-y-5 -rotate-6 items-center gap-3 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-white lg:flex">
+                        <div aria-hidden="true" className="hero-badge-float absolute -left-24 top-[28%] z-10 hidden w-[180px] -translate-y-5 -rotate-6 items-center gap-3 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-white lg:flex">
                             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-secondary"><PawPrint className="h-5 w-5" /></span>
-                            <p className="text-base font-bold leading-snug">More happy<br />tail wags.</p>
+                            <p key={activePet} className="hero-content-enter text-base font-bold leading-snug">{pet.badge[0]}<br />{pet.badge[1]}</p>
                         </div>
                         <svg aria-hidden="true" className="absolute -left-4 top-[43%] hidden h-24 w-40 text-accent lg:block" viewBox="0 0 160 96" fill="none">
                             <path className="hero-arrow-stroke hero-arrow-shaft" pathLength={1} d="M16 12C4 79 98 88 148 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
@@ -71,12 +141,16 @@ export function Hero() {
                             <ellipse cx="66" cy="47" rx="5" ry="3.5" transform="rotate(25 66 47)" />
                             <path d="M32 82Q50 88 68 82" opacity="0.5" />
                         </svg>
-                        <Link href="/shop?query=Roasted%20Chicken" className="group absolute -bottom-3 right-0 z-10 flex w-[320px] max-w-full items-center gap-4 rounded-3xl border border-white/80 bg-[#fffaf3] p-4 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none lg:-right-6 xl:-right-[108px]">
-                            <div className="relative h-[150px] w-[94px] shrink-0"><Image src="/images/new-bag.png" alt="Roasted chicken dog food pack" fill sizes="94px" className="object-contain" /></div>
-                            <div className="min-w-0 flex-1 text-secondary">
+                        <Link href={`/shop?query=${encodeURIComponent(pet.product.query)}`} className="group absolute -bottom-3 right-0 z-10 flex w-[320px] max-w-full items-center gap-4 rounded-3xl border border-white/80 bg-[#fffaf3] p-4 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none lg:-right-6 xl:-right-[108px]">
+                            <div className="relative h-[150px] w-[94px] shrink-0">
+                                {PET_TYPES.map(type => (
+                                    <Image key={type} src={PET_VARIANTS[type].product.image} alt={activePet === type ? `${pet.product.title} ${pet.product.subtitle} pack` : ""} fill sizes="94px" loading="eager" className={`object-contain transition-opacity duration-300 motion-reduce:transition-none ${activePet === type ? "opacity-100" : "opacity-0"}`} />
+                                ))}
+                            </div>
+                            <div key={activePet} className="hero-content-enter min-w-0 flex-1 text-secondary">
                                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">On the menu</p>
-                                <h2 className="mt-1 text-base font-bold leading-snug">Roasted Chicken<br />Adult Dog Food</h2>
-                                <div className="mt-3 flex items-center justify-between gap-2"><span className="text-2xl font-black tracking-tight">$26.99</span><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-white shadow-md transition-[transform,background-color] duration-200 group-hover:bg-primary group-focus-visible:bg-primary motion-safe:group-hover:scale-105 motion-reduce:transition-none"><ArrowRight aria-hidden="true" className="h-5 w-5 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none" /></span></div>
+                                <h2 className="mt-1 text-base font-bold leading-snug">{pet.product.title}<br />{pet.product.subtitle}</h2>
+                                <div className="mt-3 flex items-center justify-between gap-2"><span className="text-2xl font-black tracking-tight">${pet.product.price.toFixed(2)}</span><span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary text-white shadow-md transition-[transform,background-color] duration-200 group-hover:bg-primary group-focus-visible:bg-primary motion-safe:group-hover:scale-105 motion-reduce:transition-none"><ArrowRight aria-hidden="true" className="h-5 w-5 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none" /></span></div>
                             </div>
                         </Link>
                     </div>

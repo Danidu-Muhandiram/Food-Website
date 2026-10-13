@@ -72,14 +72,17 @@ const CATEGORIES = ["All", "Dog Food", "Cat Food", "Bird Food", "Rabbit Food", "
 function ShopPageContent() {
     const searchParams = useSearchParams()
     const urlQuery = searchParams.get("query") || ""
+    const requestedCategory = searchParams.get("category") || "All"
+    const urlCategory = CATEGORIES.includes(requestedCategory) ? requestedCategory : "All"
     
-    const [selectedCategory, setSelectedCategory] = useState("All")
+    const [selectedCategory, setSelectedCategory] = useState(urlCategory)
     const [searchQuery, setSearchQuery] = useState(urlQuery)
 
-    // Sync state with URL parameter if it changes
+    // Sync filters when a hero link or browser navigation changes the URL.
     useEffect(() => {
         setSearchQuery(urlQuery)
-    }, [urlQuery])
+        setSelectedCategory(urlCategory)
+    }, [urlQuery, urlCategory])
 
     const filteredProducts = PRODUCTS.filter(product => {
         const matchesCategory = selectedCategory === "All" || product.category === selectedCategory
