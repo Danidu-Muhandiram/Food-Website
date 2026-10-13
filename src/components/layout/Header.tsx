@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { 
     Search, 
     ShoppingBag, 
@@ -19,8 +19,18 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+const NAV_LINKS = [
+    { href: "/", label: "Home", mobileLabel: "Home" },
+    { href: "/about", label: "About Us", mobileLabel: "About Us" },
+    { href: "/shop", label: "Shop", mobileLabel: "Shop Products" },
+    { href: "/services", label: "Services", mobileLabel: "Our Services" },
+    { href: "/contact", label: "Contact", mobileLabel: "Contact" },
+]
+
 export function Header() {
     const router = useRouter()
+    const pathname = usePathname()
+    const isActiveLink = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))
 
     // UI States
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -86,23 +96,19 @@ export function Header() {
                         </div>
                     </Link>
 
-                    {/* Desktop Navigation (No Contact Link) */}
-                    <nav className="hidden md:flex items-center gap-8 text-white/90 text-sm font-bold">
-                        <Link href="/" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
-                            Home
-                        </Link>
-                        <Link href="/about" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
-                            About Us
-                        </Link>
-                        <Link href="/shop" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
-                            Shop
-                        </Link>
-                        <Link href="/services" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
-                            Services
-                        </Link>
-                        <Link href="/contact" className="hover:text-white transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-accent after:transition-all hover:after:w-full">
-                            Contact
-                        </Link>
+                    {/* Desktop navigation */}
+                    <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8 text-white/90 text-sm font-bold">
+                        {NAV_LINKS.map(({ href, label }) => (
+                            <Link
+                                key={href}
+                                href={href}
+                                aria-current={isActiveLink(href) ? (pathname === href ? "page" : "location") : undefined}
+                                className="relative py-1 transition-colors duration-200 hover:text-accent after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:rounded-full after:bg-accent after:transition-[width] after:duration-200 hover:after:w-full focus-visible:after:w-full focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent motion-reduce:transition-none motion-reduce:after:transition-none"
+                            >
+                                {label}
+                                {isActiveLink(href) && <span aria-hidden="true" className="absolute -bottom-2 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-accent" />}
+                            </Link>
+                        ))}
                     </nav>
 
                     {/* Icons Actions */}
@@ -227,22 +233,19 @@ export function Header() {
             {/* Mobile Navigation Panel Drawer */}
             {mobileMenuOpen && (
                 <div className="fixed inset-0 z-40 bg-secondary pt-24 px-6 flex flex-col justify-between animate-in slide-in-from-right duration-300">
-                    <nav className="flex flex-col gap-6 text-white text-2xl font-black">
-                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
-                            Home
-                        </Link>
-                        <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
-                            About Us
-                        </Link>
-                        <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
-                            Shop Products
-                        </Link>
-                        <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
-                            Our Services
-                        </Link>
-                        <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-accent transition-colors">
-                            Contact
-                        </Link>
+                    <nav aria-label="Mobile navigation" className="flex flex-col gap-6 text-white text-2xl font-black">
+                        {NAV_LINKS.map(({ href, mobileLabel }) => (
+                            <Link
+                                key={href}
+                                href={href}
+                                onClick={() => setMobileMenuOpen(false)}
+                                aria-current={isActiveLink(href) ? (pathname === href ? "page" : "location") : undefined}
+                                className="inline-flex min-h-11 items-center gap-3 self-start transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent motion-reduce:transition-none"
+                            >
+                                {mobileLabel}
+                                {isActiveLink(href) && <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />}
+                            </Link>
+                        ))}
                     </nav>
 
                     <div className="pb-12 space-y-6">
