@@ -1,264 +1,143 @@
+﻿import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, Heart, HeartHandshake, Leaf, PawPrint, ShoppingBag, Stethoscope } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Heart, Award, ShieldAlert, Truck, Sparkles, Star, ChevronRight, PawPrint } from "lucide-react"
+
+const VALUES = [
+    { icon: Heart, title: "Care comes first", description: "Pets are family. Their comfort and wellbeing guide the products we choose and the care we offer." },
+    { icon: Leaf, title: "Thoughtful nutrition", description: "Find food for every stage of life, with choices that make feeding your best friend feel a little easier." },
+    { icon: ShoppingBag, title: "Everyday made easier", description: "Food, essentials, and care in one place, so you can spend more time enjoying life with your pet." },
+    { icon: HeartHandshake, title: "A helping hand", description: "From everyday questions to a little extra support, we're here to help you find your next step." },
+]
+
+const MASCOTS = [
+    { name: "Max", role: "Chief taste tester", image: "/images/new-dog.png", description: "Always first in line for a treat. Takes quality control very seriously." },
+    { name: "Luna", role: "Head of naps", image: "/images/new-cat.png", description: "An expert in comfort, cozy corners, and supervising from a distance." },
+    { name: "Barnaby", role: "Resident songbird", image: "/images/cat-bird.png", description: "Brings the morning soundtrack and a little extra cheer to the team." },
+    { name: "Nibbles", role: "Snack inspector", image: "/images/cat-rabbit.png", description: "A discerning judge of crunchy greens and all the little good things." },
+]
+
+const CARE_LINKS = [
+    { icon: ShoppingBag, title: "Something good in every bowl", description: "Explore food and everyday essentials for your pet.", href: "/shop" },
+    { icon: Stethoscope, title: "Care for every chapter", description: "Discover grooming, veterinary support, and more.", href: "/services" },
+    { icon: HeartHandshake, title: "A friendly place to start", description: "Have a question? Talk to our pet care team.", href: "/contact" },
+]
+
+const primaryLink = "group inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-6 text-base font-bold text-white shadow-lg shadow-black/10 transition-[background-color,transform] hover:bg-slate-800 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none"
+const eyebrow = "text-sm font-bold uppercase tracking-[0.12em] text-[#B93800]"
 
 export default function AboutPage() {
     return (
-        <main className="min-h-screen bg-background flex flex-col">
+        <main className="min-h-screen bg-white">
             <Header />
 
-            {/* About Page Hero */}
-            <section className="relative bg-secondary text-white pt-36 pb-24 overflow-hidden">
-                {/* Subtle Dot Pattern */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(circle, #fff 2px, transparent 2px)', backgroundSize: '40px 40px' }}>
-                </div>
-                {/* Organic Blur Accent */}
-                <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
+            <section aria-labelledby="about-title" className="relative isolate overflow-hidden bg-primary pb-10 pt-28 md:pb-12 md:pt-28" style={{ backgroundImage: "radial-gradient(ellipse at 75% 40%, #ff762a 0%, #ff5710 42%, #ff4d00 78%)" }}>
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.035]" style={{ backgroundImage: "radial-gradient(circle, #fff 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+                <div className="container relative mx-auto px-4 md:px-8">
+                    <div className="grid items-center gap-8 md:grid-cols-2 md:gap-10">
+                        <div className="relative z-10">
+                            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-sm font-bold text-white">
+                                <PawPrint aria-hidden="true" className="h-4 w-4 text-accent" />
+                                THE PET SHOP FAMILY
+                            </div>
+                            <h1 id="about-title" className="text-[clamp(2.75rem,4.6vw,4rem)] font-black leading-[1.05] tracking-[-0.04em] text-white">
+                                Big love for<br /><span className="text-secondary">little paws.</span>
+                            </h1>
+                            <p className="mt-5 max-w-md text-lg leading-relaxed text-white/95">We're pet people, just like you. Here for good food, thoughtful care, and more happy moments with your best friend.</p>
+                            <div className="mt-6 flex flex-wrap items-center gap-3">
+                                <Link href="#our-story" className={`${primaryLink} focus-visible:outline-white`}>
+                                    Meet Pet Shop <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform motion-safe:group-hover:translate-x-1 motion-reduce:transition-none" />
+                                </Link>
+                                <Link href="/services" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/40 px-5 text-base font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Explore our care</Link>
+                            </div>
+                        </div>
 
-                <div className="container mx-auto px-4 md:px-8 relative z-10 text-center space-y-6">
-                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-accent text-sm font-bold tracking-wider">
-                        <PawPrint className="w-4 h-4 fill-current" />
-                        <span>MEET THE PET SHOP FAMILY</span>
+                        <div className="relative mx-auto h-[300px] w-full max-w-[520px] sm:h-[340px] md:h-[360px] lg:h-[380px]">
+                            <div aria-hidden="true" className="absolute bottom-6 left-1/2 h-[82%] w-[88%] -translate-x-1/2 rounded-[48%] bg-white/10" />
+                            <div aria-hidden="true" className="absolute bottom-6 left-[12%] h-5 w-[75%] rounded-full bg-secondary/20 blur-xl" />
+                            <div className="absolute bottom-6 left-0 top-0 w-[64%] -rotate-3">
+                                <Image src="/images/new-dog.png" alt="A happy beagle, part of the Pet Shop family" fill priority sizes="(max-width: 767px) 60vw, 30vw" className="object-contain object-bottom drop-shadow-xl" />
+                            </div>
+                            <div className="absolute bottom-4 right-0 top-[14%] w-[56%] rotate-3">
+                                <Image src="/images/new-cat.png" alt="A black and white cat sitting beside the beagle" fill priority sizes="(max-width: 767px) 50vw, 26vw" className="object-contain object-bottom drop-shadow-xl" />
+                            </div>
+                            <div className="absolute bottom-0 left-1/2 inline-flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-white/60 bg-[#fffaf3] px-4 py-2.5 text-sm font-bold text-secondary shadow-lg shadow-black/5">
+                                <Heart aria-hidden="true" className="h-4 w-4 text-[#B93800]" />
+                                A little care. A lot of love.
+                            </div>
+                        </div>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight max-w-3xl mx-auto">
-                        We’re here to keep your <br />
-                        <span className="text-primary relative inline-block">
-                            best friends
-                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-white" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 12 100 5" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.8" />
-                            </svg>
-                        </span> healthy & happy
-                    </h1>
-                    <p className="text-white/80 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-                        From raw premium diets to specialized vet support, we are your all-in-one companion for raising a joyful, thriving pet.
-                    </p>
                 </div>
             </section>
 
-            {/* Our Story Section */}
-            <section className="py-20 bg-orange-50/20">
+            <section id="our-story" aria-labelledby="story-title" className="scroll-mt-6 py-12 md:py-16">
                 <div className="container mx-auto px-4 md:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                        
-                        {/* Left Side: Images */}
-                        <div className="lg:col-span-6 relative h-[400px] md:h-[500px]">
-                            {/* Organic Backing Shadow */}
-                            <div className="absolute inset-0 bg-[#FFD600]/10 rounded-[3rem] -rotate-3 scale-95"></div>
-                            
-                            {/* Image 1 - Dog */}
-                            <div className="absolute top-0 left-0 w-[60%] h-[80%] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white rotate-[-4deg] hover:rotate-0 transition-all duration-500">
-                                <Image 
-                                    src="/images/new-dog.png" 
-                                    alt="Our happy dog" 
-                                    fill 
-                                    className="object-cover bg-orange-100"
-                                />
-                            </div>
-
-                            {/* Image 2 - Cat */}
-                            <div className="absolute bottom-0 right-0 w-[55%] h-[70%] rounded-[2rem] overflow-hidden shadow-2xl border-4 border-white rotate-[4deg] hover:rotate-0 transition-all duration-500 z-10">
-                                <Image 
-                                    src="/images/new-cat.png" 
-                                    alt="Our cozy cat" 
-                                    fill 
-                                    className="object-cover bg-amber-100"
-                                />
-                            </div>
+                    <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+                        <div className="max-w-xl">
+                            <p className={eyebrow}>Our story</p>
+                            <h2 id="story-title" className="mt-3 text-3xl font-black leading-tight tracking-tight text-secondary md:text-4xl">Pet people,<br />through and through.</h2>
+                            <p className="mt-5 text-base leading-relaxed text-slate-600 md:text-lg">Pet Shop began with a simple goal: make good food and thoughtful care easier to find. Because looking after your best friend should feel rewarding, with support when you need it.</p>
+                            <p className="mt-4 text-base leading-relaxed text-slate-600 md:text-lg">Today, we bring nutrition, everyday essentials, and pet care together in one friendly place. From the first bowl to the next checkup, we're here for the little things that make a big difference.</p>
                         </div>
-
-                        {/* Right Side: Copy */}
-                        <div className="lg:col-span-6 space-y-6">
-                            <h2 className="text-primary font-bold tracking-widest uppercase text-sm">OUR JOURNEY</h2>
-                            <h3 className="text-3xl md:text-4xl font-black text-secondary leading-tight">
-                                How a simple paw-print inspired a premium pet care community
-                            </h3>
-                            <p className="text-slate-600 text-lg leading-relaxed">
-                                Pet Shop started with a single, simple goal: to make premium-grade health support and nutritional food easily accessible for pet parents everywhere. We noticed how difficult it was to source real-ingredient food free of fillers and preservatives, so we partnered directly with local organic providers and veterinarians to design diets that work.
-                            </p>
-                            <p className="text-slate-600 text-lg leading-relaxed">
-                                Over the years, we've expanded from simple food delivery to direct veterinary consultations, pharmacy access, and home care visits. Today, we're proud to serve thousands of families across the country, keeping their best friends tail-waggingly healthy.
-                            </p>
-                            <div className="flex flex-wrap gap-6 pt-4">
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold">10k+</div>
-                                    <span className="text-sm font-bold text-secondary">Happy Pets</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-accent/20 text-[#D4AF37] flex items-center justify-center font-bold">5★</div>
-                                    <span className="text-sm font-bold text-secondary">Verified Reviews</span>
-                                </div>
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">100%</div>
-                                    <span className="text-sm font-bold text-secondary">Real Ingredients</span>
-                                </div>
-                            </div>
+                        <div className="rounded-3xl border border-orange-100 bg-[#fffaf3] p-3 md:p-4">
+                            {CARE_LINKS.map(({ icon: Icon, title, description, href }, index) => (
+                                <Link key={href} href={href} className={`group flex items-center gap-4 rounded-2xl p-4 transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary md:p-5 ${index < CARE_LINKS.length - 1 ? "border-b border-orange-100" : ""}`}>
+                                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-[#B93800]"><Icon aria-hidden="true" className="h-5 w-5" /></span>
+                                    <div className="flex-1"><h3 className="text-base font-bold text-secondary md:text-lg">{title}</h3><p className="mt-1 text-sm leading-relaxed text-slate-600 md:text-base">{description}</p></div>
+                                    <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 text-secondary transition-transform motion-safe:group-hover:translate-x-1 motion-reduce:transition-none" />
+                                </Link>
+                            ))}
                         </div>
-
                     </div>
                 </div>
             </section>
 
-            {/* Core Values Section */}
-            <section className="py-20 bg-white">
+            <section aria-labelledby="values-title" className="border-y border-orange-100/70 bg-[#fffaf3] py-12 md:py-16">
                 <div className="container mx-auto px-4 md:px-8">
-                    <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-                        <h2 className="text-primary font-bold tracking-widest uppercase text-sm">WHAT DRIVES US</h2>
-                        <h3 className="text-3xl md:text-5xl font-black text-secondary">Our Core Values</h3>
-                        <p className="text-slate-600 text-base leading-relaxed">
-                            We hold ourselves to the highest standards. We believe pets are family, and we design all of our services with that core philosophy in mind.
-                        </p>
+                    <div className="mb-8 max-w-2xl">
+                        <p className={eyebrow}>What matters to us</p>
+                        <h2 id="values-title" className="mt-3 text-3xl font-black leading-tight tracking-tight text-secondary md:text-4xl">Good care starts with good values.</h2>
+                        <p className="mt-4 text-base leading-relaxed text-slate-600">Simple principles behind every product, conversation, and little act of care.</p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {/* Value 1 */}
-                        <div className="bg-[#F8F8F8] rounded-[2rem] p-8 border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300 space-y-4 group">
-                            <div className="w-12 h-12 rounded-2xl bg-orange-100 text-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Heart className="w-6 h-6 fill-current" />
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {VALUES.map(({ icon: Icon, title, description }) => (
+                            <div key={title} className="rounded-3xl border border-orange-100 bg-white p-6">
+                                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-50 text-[#B93800]"><Icon aria-hidden="true" className="h-5 w-5" /></span>
+                                <h3 className="mt-5 text-lg font-bold text-secondary">{title}</h3>
+                                <p className="mt-3 text-base leading-relaxed text-slate-600">{description}</p>
                             </div>
-                            <h4 className="text-xl font-bold text-secondary">Compassionate Care</h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                                Every decision, product selection, and consultation comes from a place of genuine love and empathy for your pets.
-                            </p>
-                        </div>
-
-                        {/* Value 2 */}
-                        <div className="bg-[#F8F8F8] rounded-[2rem] p-8 border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300 space-y-4 group">
-                            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-[#D4AF37] flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Award className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-secondary">Premium Nutrition</h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                                No mystery fillers or synthetic additives. Only whole foods, pure proteins, and optimal nutrients tailored to your pet's breed.
-                            </p>
-                        </div>
-
-                        {/* Value 3 */}
-                        <div className="bg-[#F8F8F8] rounded-[2rem] p-8 border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300 space-y-4 group">
-                            <div className="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Truck className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-secondary">Seamless Access</h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                                Getting prescriptions, diets, and advice shouldn't be stressful. We make scheduling and ordering completely frictionless.
-                            </p>
-                        </div>
-
-                        {/* Value 4 */}
-                        <div className="bg-[#F8F8F8] rounded-[2rem] p-8 border border-slate-100 hover:border-primary/20 hover:shadow-xl hover:shadow-orange-500/5 transition-all duration-300 space-y-4 group">
-                            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Sparkles className="w-6 h-6" />
-                            </div>
-                            <h4 className="text-xl font-bold text-secondary">Local Support</h4>
-                            <p className="text-slate-600 text-sm leading-relaxed">
-                                We actively sponsor local pet shelters and direct a percentage of our profits to care for rescue animals.
-                            </p>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Mascot Grid Section */}
-            <section className="py-20 bg-[#FFD600] relative overflow-hidden">
-                {/* Subtle Dot Pattern */}
-                <div className="absolute inset-0 opacity-10 pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(circle, #000 2px, transparent 2px)', backgroundSize: '40px 40px' }}>
-                </div>
-
-                <div className="container mx-auto px-4 md:px-8 relative z-10">
-                    <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-                        <h2 className="text-slate-900 font-bold tracking-widest uppercase text-sm opacity-80">OUR FURRY BOARD MEMBERS</h2>
-                        <h3 className="text-3xl md:text-5xl font-black text-slate-900">Meet the Mascots</h3>
-                        <p className="text-slate-800 font-medium text-base">
-                            The true brains behind the operation. These dedicated workers ensure our standards remain sky-high.
-                        </p>
+            <section aria-labelledby="mascots-title" className="relative overflow-hidden bg-[#FFD600] py-12 md:py-16">
+                <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(circle, #0f172a 1px, transparent 1px)", backgroundSize: "36px 36px" }} />
+                <div className="container relative mx-auto px-4 md:px-8">
+                    <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                        <div><p className="text-sm font-bold uppercase tracking-[0.12em] text-secondary/80">Our furry board members</p><h2 id="mascots-title" className="mt-3 text-3xl font-black leading-tight tracking-tight text-secondary md:text-4xl">Small paws. Big personalities.</h2></div>
+                        <p className="max-w-sm text-base leading-relaxed text-secondary/80">Meet the faces that keep us smiling and remind us why we do what we do.</p>
                     </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {/* Mascot 1 */}
-                        <div className="bg-white rounded-[2rem] p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center space-y-4 group">
-                            <div className="relative w-full aspect-square bg-orange-50 rounded-[1.5rem] overflow-hidden">
-                                <Image src="/images/new-dog.png" alt="Max" fill className="object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xl font-black text-slate-900">Max</h4>
-                                <p className="text-primary text-xs font-bold uppercase tracking-wider">Chief Tasting Officer (CTO)</p>
-                            </div>
-                            <p className="text-slate-600 text-sm italic">
-                                "Will run 10 miles for a single piece of organic peanut butter treats."
-                            </p>
-                        </div>
-
-                        {/* Mascot 2 */}
-                        <div className="bg-white rounded-[2rem] p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center space-y-4 group">
-                            <div className="relative w-full aspect-square bg-amber-50 rounded-[1.5rem] overflow-hidden">
-                                <Image src="/images/new-cat.png" alt="Luna" fill className="object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xl font-black text-slate-900">Luna</h4>
-                                <p className="text-primary text-xs font-bold uppercase tracking-wider">Head of Sleep Operations</p>
-                            </div>
-                            <p className="text-slate-600 text-sm italic">
-                                "Maintains a strict schedule of 18 hours of sleep per day, keeping productivity high."
-                            </p>
-                        </div>
-
-                        {/* Mascot 3 */}
-                        <div className="bg-white rounded-[2rem] p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center space-y-4 group">
-                            <div className="relative w-full aspect-square bg-sky-50 rounded-[1.5rem] overflow-hidden">
-                                <Image src="/images/cat-bird.png" alt="Barnaby" fill className="object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xl font-black text-slate-900">Barnaby</h4>
-                                <p className="text-primary text-xs font-bold uppercase tracking-wider">Chief Whistling Director</p>
-                            </div>
-                            <p className="text-slate-600 text-sm italic">
-                                "Keeps the team motivated by singing beautiful bird tunes starting at 5:00 AM."
-                            </p>
-                        </div>
-
-                        {/* Mascot 4 */}
-                        <div className="bg-white rounded-[2rem] p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center space-y-4 group">
-                            <div className="relative w-full aspect-square bg-emerald-50 rounded-[1.5rem] overflow-hidden">
-                                <Image src="/images/cat-rabbit.png" alt="Nibbles" fill className="object-contain p-4 group-hover:scale-110 transition-transform duration-500" />
-                            </div>
-                            <div>
-                                <h4 className="text-xl font-black text-slate-900">Nibbles</h4>
-                                <p className="text-primary text-xs font-bold uppercase tracking-wider">Quality Control Inspector</p>
-                            </div>
-                            <p className="text-slate-600 text-sm italic">
-                                "Inspects the crunchiness of all fresh organic lettuce and rabbit dry foods."
-                            </p>
-                        </div>
+                    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {MASCOTS.map(({ name, role, image, description }) => (
+                            <article key={name} className="rounded-3xl border border-white/70 bg-white p-4 shadow-sm">
+                                <div className="relative h-44 overflow-hidden rounded-2xl bg-[#fffaf3] md:h-48"><Image src={image} alt={`${name}, our ${role.toLowerCase()}`} fill sizes="(max-width: 639px) 90vw, (max-width: 1023px) 45vw, 23vw" className="object-contain p-2" /></div>
+                                <div className="px-1 pb-2 pt-4"><h3 className="text-2xl font-black tracking-tight text-secondary">{name}</h3><p className="mt-1 text-sm font-semibold text-[#B93800]">{role}</p><p className="mt-3 text-sm leading-relaxed text-slate-600">{description}</p></div>
+                            </article>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="py-24 bg-white text-center relative overflow-hidden">
-                <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-                <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-3xl space-y-8">
-                    <h3 className="text-4xl md:text-5xl font-black text-secondary leading-tight">
-                        Give your pet the <br />
-                        <span className="text-primary">care and love</span> they deserve
-                    </h3>
-                    <p className="text-slate-600 text-lg leading-relaxed max-w-xl mx-auto">
-                        Explore our selection of premium organic meals, schedule a vet consult, or speak to our custom pet nutritionists today.
-                    </p>
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <Button asChild className="h-14 px-10 rounded-2xl bg-primary text-white hover:bg-primary/95 text-lg font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
-                            <Link href="/shop">
-                                Shop Now
-                            </Link>
-                        </Button>
-                        <Button asChild variant="outline" className="h-14 px-10 rounded-2xl border-2 border-slate-900 bg-white hover:bg-slate-50 text-slate-900 text-lg font-bold shadow-sm transition-all hover:scale-105 active:scale-95">
-                            <Link href="/contact">
-                                Contact Us
-                            </Link>
-                        </Button>
+            <section aria-labelledby="about-cta-title" className="bg-white py-10 md:py-12">
+                <div className="container mx-auto px-4 md:px-8">
+                    <div className="flex flex-col gap-6 rounded-3xl border border-orange-100 bg-[#fffaf3] p-6 md:p-8 lg:flex-row lg:items-center lg:justify-between">
+                        <div className="max-w-xl"><p className={eyebrow}>Let's make their day</p><h2 id="about-cta-title" className="mt-2 text-2xl font-black leading-tight tracking-tight text-secondary md:text-3xl">More good days with your best friend.</h2><p className="mt-3 text-base leading-relaxed text-slate-600">Find their next favorite meal, or a little extra care.</p></div>
+                        <div className="flex shrink-0 flex-wrap items-center gap-3">
+                            <Link href="/shop" className={primaryLink}>Shop for your pet <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform motion-safe:group-hover:translate-x-1 motion-reduce:transition-none" /></Link>
+                            <Link href="/contact" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-secondary/20 px-5 text-base font-bold text-secondary transition-colors hover:border-secondary/40 hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">Talk to our team</Link>
+                        </div>
                     </div>
                 </div>
             </section>
