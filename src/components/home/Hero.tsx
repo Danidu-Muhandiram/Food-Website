@@ -22,11 +22,11 @@ export function Hero() {
                             Real ingredients. Balanced nutrition.<br className="hidden lg:block" /> More happy tail wags.
                         </p>
                         <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-3">
-                            <Link href="/shop?query=dog" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-5 text-base font-bold text-white shadow-lg shadow-black/10 transition-[transform,background-color,box-shadow] duration-200 hover:bg-slate-800 hover:shadow-xl hover:shadow-black/15 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none">
-                                Shop Dog Food <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-reduce:transition-none" />
+                            <Link href="/shop?query=dog" className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-5 text-base font-bold text-white shadow-lg shadow-black/10 transition-[translate,background-color,box-shadow] duration-200 hover:bg-slate-800 hover:shadow-xl hover:shadow-black/15 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none">
+                                Shop Dog Food <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none" />
                             </Link>
                             <Link href="/shop" className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/5 px-4 text-base font-bold text-white transition-colors hover:border-white/60 hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
-                                Explore Our Products <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                                Explore Our Products <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none" />
                             </Link>
                         </div>
                         <div className="mt-5 flex items-center gap-3 border-t border-white/20 pt-4 text-white">
@@ -43,14 +43,15 @@ export function Hero() {
                         </div>
                         <div aria-hidden="true" className="absolute bottom-12 left-1/2 h-8 w-[56%] -translate-x-1/2 rounded-[100%] bg-secondary/20 blur-2xl lg:left-[calc(50%-24px)]" />
                         <div className="absolute inset-x-8 bottom-12 top-0 -translate-y-3 origin-bottom scale-[1.12] sm:inset-x-12 lg:-translate-x-6">
-                            <Image src="/images/new-dog.png" alt="Happy beagle sitting beside its food" fill sizes="(max-width: 767px) 95vw, 50vw" className="object-contain object-bottom drop-shadow-xl" priority />
+                            <Image src="/images/new-dog.png" alt="Happy beagle sitting beside its food" fill sizes="(max-width: 767px) 95vw, 50vw" className="hero-dog-float object-contain object-bottom drop-shadow-xl" priority />
                         </div>
-                        <div aria-hidden="true" className="absolute -left-24 top-[28%] z-10 hidden -translate-y-5 -rotate-6 items-center gap-3 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-white lg:flex">
+                        <div aria-hidden="true" className="hero-badge-float absolute -left-24 top-[28%] z-10 hidden -translate-y-5 -rotate-6 items-center gap-3 rounded-2xl border border-white/25 bg-white/10 px-4 py-3 text-white lg:flex">
                             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-secondary"><PawPrint className="h-5 w-5" /></span>
                             <p className="text-base font-bold leading-snug">More happy<br />tail wags.</p>
                         </div>
                         <svg aria-hidden="true" className="absolute -left-4 top-[43%] hidden h-24 w-40 text-accent lg:block" viewBox="0 0 160 96" fill="none">
-                            <path d="M16 12C4 79 98 88 148 14M129 20L148 14L144 34" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path className="hero-arrow-stroke hero-arrow-shaft" pathLength={1} d="M16 12C4 79 98 88 148 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+                            <path className="hero-arrow-stroke hero-arrow-tip" pathLength={1} d="M129 20L148 14L144 34" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                         <svg
                             aria-hidden="true"
@@ -70,7 +71,7 @@ export function Hero() {
                             <ellipse cx="66" cy="47" rx="5" ry="3.5" transform="rotate(25 66 47)" />
                             <path d="M32 82Q50 88 68 82" opacity="0.5" />
                         </svg>
-                        <Link href="/shop?query=Roasted%20Chicken" className="group absolute -bottom-3 right-0 z-10 flex w-[320px] max-w-full items-center gap-4 rounded-3xl border border-white/80 bg-[#fffaf3] p-4 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[transform,box-shadow] duration-200 hover:shadow-[0_22px_55px_-14px_rgba(92,34,10,0.3)] motion-safe:hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none lg:-right-6 xl:-right-[108px]">
+                        <Link href="/shop?query=Roasted%20Chicken" className="group absolute -bottom-3 right-0 z-10 flex w-[320px] max-w-full items-center gap-4 rounded-3xl border border-white/80 bg-[#fffaf3] p-4 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none lg:-right-6 xl:-right-[108px]">
                             <div className="relative h-[150px] w-[94px] shrink-0"><Image src="/images/new-bag.png" alt="Roasted chicken dog food pack" fill sizes="94px" className="object-contain" /></div>
                             <div className="min-w-0 flex-1 text-secondary">
                                 <p className="text-xs font-bold uppercase tracking-[0.12em] text-primary">On the menu</p>
