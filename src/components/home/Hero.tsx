@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Cat, Dog, Heart, PawPrint } from "lucide-react"
@@ -39,14 +39,58 @@ const PET_VARIANTS = {
 } as const
 
 const PET_TYPES = ["dog", "cat"] as const
+const AUTO_SWITCH_DELAY = 6000
 type PetType = typeof PET_TYPES[number]
 
 export function Hero() {
     const [activePet, setActivePet] = useState<PetType>("dog")
+    const [isHovered, setIsHovered] = useState(false)
+    const [hasFocus, setHasFocus] = useState(false)
+    const [isPageVisible, setIsPageVisible] = useState(true)
+    const [reducedMotion, setReducedMotion] = useState(true)
+    const [selectionVersion, setSelectionVersion] = useState(0)
     const pet = PET_VARIANTS[activePet]
 
+    useEffect(() => {
+        const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)")
+        const syncMotion = () => setReducedMotion(motionPreference.matches)
+        const syncVisibility = () => setIsPageVisible(!document.hidden)
+
+        syncMotion()
+        syncVisibility()
+        motionPreference.addEventListener("change", syncMotion)
+        document.addEventListener("visibilitychange", syncVisibility)
+
+        return () => {
+            motionPreference.removeEventListener("change", syncMotion)
+            document.removeEventListener("visibilitychange", syncVisibility)
+        }
+    }, [])
+
+    useEffect(() => {
+        if (isHovered || hasFocus || !isPageVisible || reducedMotion) return
+
+        const timer = window.setTimeout(() => {
+            setActivePet(current => PET_TYPES[(PET_TYPES.indexOf(current) + 1) % PET_TYPES.length])
+        }, AUTO_SWITCH_DELAY)
+
+        return () => window.clearTimeout(timer)
+    }, [activePet, isHovered, hasFocus, isPageVisible, reducedMotion, selectionVersion])
+
+    const selectPet = (type: PetType) => {
+        setActivePet(type)
+        setSelectionVersion(version => version + 1)
+    }
+
     return (
-        <section className="relative isolate overflow-hidden bg-primary pb-10 pt-24 md:flex md:min-h-svh md:items-center md:pb-6 md:pt-22" style={{ backgroundImage: "radial-gradient(ellipse at 72% 36%, #ff762a 0%, #ff5710 42%, #ff4d00 78%)" }}>
+        <section
+            className="relative isolate overflow-hidden bg-primary pb-10 pt-24 md:flex md:min-h-svh md:items-center md:pb-6 md:pt-22"
+            style={{ backgroundImage: "radial-gradient(ellipse at 72% 36%, #ff762a 0%, #ff5710 42%, #ff4d00 78%)" }}
+            onPointerEnter={event => { if (event.pointerType !== "touch") setIsHovered(true) }}
+            onPointerLeave={() => setIsHovered(false)}
+            onFocusCapture={() => setHasFocus(true)}
+            onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget)) setHasFocus(false) }}
+        >
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-[0.035] mix-blend-soft-light" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23fff' filter='url(%23grain)' d='M0 0h180v180H0z'/%3E%3C/svg%3E")` }} />
             <div aria-hidden="true" className="pointer-events-none absolute -right-28 -top-48 h-[440px] w-[440px] rounded-full border-[40px] border-white/[0.03]" />
             <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-20 h-64 w-[480px] -rotate-12 rounded-[50%] bg-white/[0.035]" />
@@ -59,7 +103,7 @@ export function Hero() {
                                 key={type}
                                 type="button"
                                 aria-pressed={activePet === type}
-                                onClick={() => setActivePet(type)}
+                                onClick={() => selectPet(type)}
                                 className={`flex h-16 w-16 shrink-0 flex-col items-center justify-center gap-2 rounded-2xl border text-sm font-bold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:h-20 md:w-20 ${activePet === type ? "border-[#fffaf3] bg-[#fffaf3] text-secondary shadow-sm" : "border-white/30 bg-white/[0.06] text-white hover:border-white/60 hover:bg-white/15"}`}
                             >
                                 <Icon aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 md:h-7 md:w-7" />
