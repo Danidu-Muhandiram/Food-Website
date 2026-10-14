@@ -91,7 +91,7 @@ export function Header() {
                     
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group relative z-50">
-                        <div className="text-white text-2xl md:text-3xl font-black tracking-tight hover:text-accent transition-colors">
+                        <div className="text-white text-xl sm:text-2xl md:text-3xl font-black tracking-tight hover:text-accent transition-colors">
                             PET SHOP
                         </div>
                     </Link>
@@ -112,7 +112,7 @@ export function Header() {
                     </nav>
 
                     {/* Icons Actions */}
-                    <div className="flex items-center gap-3 md:gap-5 text-white relative z-50">
+                    <div className="flex items-center gap-1 sm:gap-3 md:gap-5 text-white relative z-50">
                         
                         {/* Search Icon Trigger */}
                         <button 
