@@ -44,8 +44,8 @@ export function About() {
                     <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
                         <div className="space-y-3">
                             <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">About Us</h2>
-                            <h3 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
-                                We're just like you, <br />
+                            <h3 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                                We&apos;re just like you, <br />
                                 <span className="text-primary relative">
                                     pet lovers
                                     <svg className="absolute w-full h-3 -bottom-1 left-0 text-primary opacity-30" viewBox="0 0 100 10" preserveAspectRatio="none">
@@ -65,7 +65,7 @@ export function About() {
                                 "Expert care advice & support",
                                 "Trusted by thousands of pet parents"
                             ].map((item, i) => (
-                                <li key={i} className="flex items-center gap-4 text-slate-800 font-bold justify-center md:justify-start">
+                                <li key={i} className="flex items-center gap-4 text-sm md:text-base text-slate-800 font-semibold justify-center md:justify-start">
                                     <div className="min-w-10 h-10 rounded-full bg-[#FFD600] flex items-center justify-center text-slate-900 shadow-sm transform rotate-[-10deg]">
                                         <PawPrint className="w-5 h-5" />
                                     </div>
@@ -77,7 +77,7 @@ export function About() {
                         <div className="pt-2">
                             <Link
                                 href="/about"
-                                className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all group"
+                                className="inline-flex items-center justify-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-white text-sm md:text-base font-bold h-12 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all group"
                             >
                                 <span>More About Us</span>
                                 <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />

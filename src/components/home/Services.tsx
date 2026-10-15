@@ -43,7 +43,7 @@ export function Services() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             OUR SERVICES
                         </h2>
-                        <h2 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                             Complete <span className="text-primary relative inline-block">Pet Care</span> Solutions
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl">
@@ -77,7 +77,7 @@ export function Services() {
 
                             {/* Title & Description */}
                             <div>
-                                <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
+                                <h3 className="text-[28px] md:text-[32px] font-black text-slate-900 tracking-tight leading-tight">
                                     Pet Doctor
                                 </h3>
                                 <p className="text-slate-600 text-sm md:text-base mt-2 leading-relaxed">
@@ -120,10 +120,10 @@ export function Services() {
                             >
                                 <div className="relative z-10 flex flex-col justify-between">
                                     <div>
-                                        <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+                                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-tight">
                                             Pet Pharmacy
                                         </h3>
-                                        <p className="text-slate-600 text-xs md:text-sm font-medium mt-1 max-w-[170px] leading-snug">
+                                        <p className="text-slate-600 text-sm font-medium mt-1 max-w-[170px] leading-relaxed">
                                             Medicines & health supplements
                                         </p>
                                     </div>
@@ -150,10 +150,10 @@ export function Services() {
                             >
                                 <div className="relative z-10 flex flex-col justify-between">
                                     <div>
-                                        <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
+                                        <h3 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-tight">
                                             Home Visits
                                         </h3>
-                                        <p className="text-slate-600 text-xs md:text-sm font-medium mt-1 max-w-[170px] leading-snug">
+                                        <p className="text-slate-600 text-sm font-medium mt-1 max-w-[170px] leading-relaxed">
                                             We come to your doorstep
                                         </p>
                                     </div>
@@ -183,25 +183,25 @@ export function Services() {
                                 href="/shop"
                                 className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
-                                <div className="relative z-10">
-                                    <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
+                                <div className="relative z-10 flex flex-1 flex-col">
+                                    <h3 className="text-base md:text-lg font-bold text-slate-900 tracking-tight leading-tight">
                                         Pet Food
                                     </h3>
-                                    <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
+                                    <p className="text-slate-600 text-sm font-medium leading-relaxed mt-1 max-w-[130px]">
                                         Premium nutrition for all pets
                                     </p>
-                                    <ServiceArrow />
-                                </div>
-
-                                {/* Product Bag Image with blend-multiply */}
-                                <div className="absolute right-1 bottom-1 w-20 h-24 pointer-events-none mix-blend-multiply">
-                                    <Image 
-                                        src="/images/new-bag.png" 
-                                        alt="Pet Food"
-                                        fill
-                                        sizes="80px"
-                                        className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
-                                    />
+                                    <div className="mt-auto flex items-end justify-between gap-3 pt-2">
+                                        <ServiceArrow />
+                                        <div className="relative h-24 w-20 shrink-0 pointer-events-none mix-blend-multiply">
+                                            <Image
+                                                src="/images/new-bag.png"
+                                                alt="Pet Food"
+                                                fill
+                                                sizes="80px"
+                                                className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
 
@@ -210,25 +210,25 @@ export function Services() {
                                 href="/shop"
                                 className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
-                                <div className="relative z-10">
-                                    <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
+                                <div className="relative z-10 flex flex-1 flex-col">
+                                    <h3 className="text-base md:text-lg font-bold text-slate-900 tracking-tight leading-tight">
                                         Delivery
                                     </h3>
-                                    <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
+                                    <p className="text-slate-600 text-sm font-medium leading-relaxed mt-1 max-w-[130px]">
                                         Fast & fresh food delivery
                                     </p>
-                                    <ServiceArrow />
-                                </div>
-
-                                {/* Product Tin Image with blend-multiply */}
-                                <div className="absolute right-1 bottom-1 w-18 h-22 pointer-events-none mix-blend-multiply">
-                                    <Image 
-                                        src="/images/new-tin.png" 
-                                        alt="Delivery"
-                                        fill
-                                        sizes="72px"
-                                        className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
-                                    />
+                                    <div className="mt-auto flex items-end justify-between gap-3 pt-2">
+                                        <ServiceArrow />
+                                        <div className="relative h-22 w-18 shrink-0 pointer-events-none mix-blend-multiply">
+                                            <Image
+                                                src="/images/new-tin.png"
+                                                alt="Delivery"
+                                                fill
+                                                sizes="72px"
+                                                className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
 
@@ -237,25 +237,25 @@ export function Services() {
                                 href="/services/nutrition"
                                 className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
-                                <div className="relative z-10">
-                                    <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
+                                <div className="relative z-10 flex flex-1 flex-col">
+                                    <h3 className="text-base md:text-lg font-bold text-slate-900 tracking-tight leading-tight">
                                         Nutrition
                                     </h3>
-                                    <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
+                                    <p className="text-slate-600 text-sm font-medium leading-relaxed mt-1 max-w-[130px]">
                                         Expert dietary advice
                                     </p>
-                                    <ServiceArrow />
-                                </div>
-
-                                {/* Cat Image with blend-multiply */}
-                                <div className="absolute right-0 bottom-0 w-20 h-22 pointer-events-none mix-blend-multiply">
-                                    <Image 
-                                        src="/images/cat-cat.png" 
-                                        alt="Nutrition"
-                                        fill
-                                        sizes="80px"
-                                        className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
-                                    />
+                                    <div className="mt-auto flex items-end justify-between gap-3 pt-2">
+                                        <ServiceArrow />
+                                        <div className="relative h-22 w-20 shrink-0 pointer-events-none mix-blend-multiply">
+                                            <Image
+                                                src="/images/cat-cat.png"
+                                                alt="Nutrition"
+                                                fill
+                                                sizes="80px"
+                                                className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                             </Link>
 

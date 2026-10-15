@@ -210,7 +210,7 @@ export function Hero() {
                                 ))}
                             </div>
                             <div key={activePet} className="hero-content-enter min-w-0 flex-1 text-secondary">
-                                <p className="text-[10px] font-bold uppercase tracking-[0.12em] text-primary md:text-xs">On the menu</p>
+                                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary md:text-xs">On the menu</p>
                                 <h2 className="text-sm font-bold leading-snug md:mt-1 md:text-base">{pet.product.title}<br />{pet.product.subtitle}</h2>
                                 <div className="mt-2 flex items-center justify-between gap-2 md:mt-3"><span className="text-xl font-black tracking-tight md:text-2xl">${pet.product.price.toFixed(2)}</span><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-white shadow-md transition-[transform,background-color] duration-200 group-hover:bg-primary group-focus-visible:bg-primary motion-safe:group-hover:scale-105 motion-reduce:transition-none md:h-11 md:w-11"><ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none md:h-5 md:w-5" /></span></div>
                             </div>

@@ -91,7 +91,7 @@ export function PopularProducts() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             Popular Products
                         </h2>
-                        <h2 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                             Our <span className="text-primary">Most Popular</span> Products
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl">
@@ -138,7 +138,7 @@ export function PopularProducts() {
                                 {/* A consistent image stage keeps every card aligned. */}
                                 <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-2xl bg-[#F8F7F4]">
                                     {product.badge && (
-                                        <div className={`absolute top-3 left-3 z-10 ${product.badgeColor} text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider`}>
+                                        <div className={`absolute top-3 left-3 z-10 ${product.badgeColor} text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider`}>
                                             {product.badge}
                                         </div>
                                     )}

@@ -45,7 +45,7 @@ export function TopCategories() {
                         <h2 className="text-slate-900 font-bold tracking-widest uppercase text-xs md:text-sm opacity-80">
                             Shop By Category
                         </h2>
-                        <h2 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                             Pet Product Category
                         </h2>
                         <p className="text-slate-800 text-sm md:text-base lg:text-base leading-relaxed opacity-80 line-clamp-2 md:line-clamp-none">
