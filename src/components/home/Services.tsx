@@ -33,7 +33,7 @@ export function Services() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             OUR SERVICES
                         </h2>
-                        <h2 className="text-3xl md:text-5xl lg:text-4xl xl:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                             Complete <span className="text-primary relative inline-block">Pet Care</span> Solutions
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl">

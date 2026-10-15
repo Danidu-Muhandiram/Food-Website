@@ -43,8 +43,8 @@ export function About() {
                     {/* Right Column: Text Content */}
                     <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
                         <div className="space-y-3">
-                            <h2 className="text-secondary font-bold tracking-widest uppercase text-sm">About Us</h2>
-                            <h3 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+                            <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">About Us</h2>
+                            <h3 className="text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                                 We're just like you, <br />
                                 <span className="text-primary relative">
                                     pet lovers
@@ -55,7 +55,7 @@ export function About() {
                             </h3>
                         </div>
 
-                        <p className="text-slate-600 text-base md:text-lg leading-relaxed">
+                        <p className="text-slate-600 text-sm md:text-base leading-relaxed">
                             We’re more than a store, we’re a community of pet enthusiasts dedicated to the wellbeing of your companions. From nutritious feasts to engaging toys, we handpick every item to ensure your pets live their best, happiest lives. We are committed to quality, safety, and the joy of pet parenting.
                         </p>
 
