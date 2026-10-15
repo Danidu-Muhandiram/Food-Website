@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useCart } from "@/lib/cart"
 
 const NAV_LINKS = [
     { href: "/", label: "Home", mobileLabel: "Home" },
@@ -29,6 +30,8 @@ const NAV_LINKS = [
 export function Header() {
     const router = useRouter()
     const pathname = usePathname()
+    const { items: cartItems } = useCart()
+    const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0)
     const isActiveLink = (href: string) => pathname === href || (href !== "/" && pathname.startsWith(`${href}/`))
 
     // UI States
@@ -154,10 +157,11 @@ export function Header() {
                         {/* Cart Shopping Bag Link */}
                         <Link 
                             href="/cart"
-                            className="relative text-white hover:text-accent transition-colors p-2 focus:outline-none flex items-center justify-center cursor-pointer"
-                            aria-label="View Cart"
+                            className="relative flex h-11 w-11 items-center justify-center rounded-xl text-white transition-colors hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                            aria-label={`View cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`}
                         >
                             <ShoppingBag className="w-5 h-5" />
+                            {cartCount > 0 && <span aria-hidden="true" className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-none text-secondary">{cartCount > 99 ? "99+" : cartCount}</span>}
                         </Link>
 
                         {/* Account User Trigger */}

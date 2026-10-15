@@ -65,12 +65,13 @@ function subscribe(onChange: () => void) {
     }
 }
 
-function addItem(product: CartProduct) {
+function addItem(product: CartProduct, quantity = 1) {
+    if (!Number.isSafeInteger(quantity) || quantity < 1) return
     const items = parseItems(getSnapshot())
     const existing = items.find(item => item.id === product.id)
     saveItems(existing
-        ? items.map(item => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item)
-        : [...items, { id: product.id, name: product.name, category: product.category, price: product.price, image: product.image, quantity: 1 }])
+        ? items.map(item => item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item)
+        : [...items, { id: product.id, name: product.name, category: product.category, price: product.price, image: product.image, quantity }])
 }
 
 function changeQuantity(id: number, delta: number) {
