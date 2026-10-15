@@ -4,6 +4,16 @@ import Link from "next/link"
 import Image from "next/image"
 import { Crown, ArrowRight } from "lucide-react"
 
+const supportingCardStyle = "group relative overflow-hidden border border-stone-200 bg-white shadow-[0_4px_20px_-12px_rgba(15,23,42,0.12)] transition-[border-color,box-shadow,translate] duration-300 hover:border-primary/35 hover:shadow-[0_16px_32px_-16px_rgba(15,23,42,0.18)] motion-safe:hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+
+function ServiceArrow() {
+    return (
+        <span aria-hidden="true" className="mt-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-orange-200 bg-orange-50 text-primary transition-colors duration-200 group-hover:border-secondary group-hover:bg-secondary group-hover:text-white group-focus-visible:border-secondary group-focus-visible:bg-secondary group-focus-visible:text-white">
+            <ArrowRight className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-safe:group-focus-visible:translate-x-0.5" />
+        </span>
+    )
+}
+
 export function Services() {
     return (
         <section className="py-12 md:py-20 bg-[#F5F1EA] relative overflow-hidden">
@@ -54,16 +64,15 @@ export function Services() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-7 items-stretch">
                     
                     {/* Card 1: Pet Doctor (Left Tall Featured Card - 32px radius) */}
-                    <Link 
-                        href="/services/vet-care"
-                        className="lg:col-span-4 rounded-[2rem] bg-[#FEF9E6] border-[1.5px] border-[#E5C978] p-6 md:p-7 flex flex-col justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[360px] lg:min-h-[430px]"
+                    <article
+                        className="lg:col-span-4 rounded-[2rem] bg-[#FEF9E6] border border-[#E5C978] px-6 pt-6 md:px-7 md:pt-7 flex flex-col justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] min-h-[430px]"
                     >
                         {/* Top Content */}
                         <div className="relative z-10">
-                            {/* Most Popular Badge */}
+                            {/* Featured service */}
                             <div className="inline-flex items-center gap-1.5 bg-[#FFDE59] text-slate-900 font-extrabold text-[11px] px-3 py-1 rounded-full shadow-sm mb-4 border border-amber-300">
-                                <Crown className="w-3.5 h-3.5 fill-current" />
-                                <span>Most Popular</span>
+                                <Crown aria-hidden="true" className="w-3.5 h-3.5" />
+                                <span>Featured Care</span>
                             </div>
 
                             {/* Title & Description */}
@@ -71,41 +80,43 @@ export function Services() {
                                 <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                                     Pet Doctor
                                 </h3>
-                                <p className="text-slate-600 text-sm md:text-base font-medium mt-1.5 max-w-[210px] leading-snug">
-                                    Specialist veterinary services
+                                <p className="text-slate-600 text-sm md:text-base mt-2 leading-relaxed">
+                                    Routine checkups to help spot health concerns early.
                                 </p>
                             </div>
 
                             {/* CTA Action Button */}
-                            <div className="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center shadow-md mt-6 transition-all group-hover:scale-110 group-hover:bg-primary/95">
-                                <ArrowRight className="w-4.5 h-4.5 transition-transform group-hover:translate-x-0.5" />
-                            </div>
+                            <Link href="/services/vet-care" className="group mt-4 inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-sm font-bold text-white shadow-sm transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">
+                                Explore Vet Care
+                                <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1" />
+                            </Link>
                         </div>
 
                         {/* Yellow Blob Decor */}
                         <div className="absolute -bottom-8 -right-8 w-52 h-52 bg-amber-200/40 rounded-full blur-2xl pointer-events-none" />
 
                         {/* Dog Image */}
-                        <div className="absolute right-0 bottom-0 w-48 h-56 md:w-56 md:h-64 pointer-events-none">
+                        <div className="relative mt-4 h-56 w-full max-w-[300px] self-center pointer-events-none">
                             <Image 
                                 src="/images/new-dog.png" 
-                                alt="Pet Doctor"
+                                alt="Happy beagle representing veterinary care"
                                 fill
-                                className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
+                                sizes="(min-width: 1024px) 30vw, 300px"
+                                className="object-contain object-bottom drop-shadow-lg"
                             />
                         </div>
-                    </Link>
+                    </article>
 
                     {/* Right Columns Area (8 Columns) */}
                     <div className="lg:col-span-8 flex flex-col gap-6 lg:gap-7 justify-between">
                         
                         {/* Top Row: 2 Wide Cards (28px radius) */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
+                        <div className="grid flex-1 grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7">
                             
-                            {/* Card 2: Pet Pharmacy (Soft Peach) */}
+                            {/* Card 2: Pet Pharmacy */}
                             <Link 
                                 href="/services/pharmacy"
-                                className="rounded-[1.75rem] bg-[#FFF5ED] border-[1.5px] border-[#F8BFA2] p-6 flex justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[175px] md:min-h-[195px]"
+                                className={`${supportingCardStyle} rounded-[1.75rem] p-6 flex justify-between min-h-[175px] md:min-h-[195px]`}
                             >
                                 <div className="relative z-10 flex flex-col justify-between">
                                     <div>
@@ -117,26 +128,25 @@ export function Services() {
                                         </p>
                                     </div>
 
-                                    <div className="w-9 h-9 rounded-full bg-white border-[1.5px] border-orange-300 text-primary shadow-sm flex items-center justify-center transition-all group-hover:bg-primary group-hover:text-white group-hover:border-primary group-hover:scale-110 mt-4">
-                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                                    </div>
+                                    <ServiceArrow />
                                 </div>
 
                                 {/* Pet Image with blend-multiply */}
-                                <div className="relative w-28 h-28 md:w-34 md:h-34 self-end shrink-0 pointer-events-none mix-blend-multiply">
+                                <div className="relative w-24 h-28 xl:w-34 xl:h-34 self-end shrink-0 pointer-events-none mix-blend-multiply">
                                     <Image 
                                         src="/images/cat-rabbit.png" 
                                         alt="Pet Pharmacy"
                                         fill
+                                        sizes="(min-width: 1280px) 136px, 96px"
                                         className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </Link>
 
-                            {/* Card 3: Home Visits (Soft Mint) */}
+                            {/* Card 3: Home Visits */}
                             <Link 
                                 href="/services/vet-care"
-                                className="rounded-[1.75rem] bg-[#EDF9F2] border-[1.5px] border-[#A8E2BF] p-6 flex justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[175px] md:min-h-[195px]"
+                                className={`${supportingCardStyle} rounded-[1.75rem] p-6 flex justify-between min-h-[175px] md:min-h-[195px]`}
                             >
                                 <div className="relative z-10 flex flex-col justify-between">
                                     <div>
@@ -148,17 +158,16 @@ export function Services() {
                                         </p>
                                     </div>
 
-                                    <div className="w-9 h-9 rounded-full bg-white border-[1.5px] border-emerald-300 text-emerald-600 shadow-sm flex items-center justify-center transition-all group-hover:bg-emerald-600 group-hover:text-white group-hover:border-emerald-600 group-hover:scale-110 mt-4">
-                                        <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                                    </div>
+                                    <ServiceArrow />
                                 </div>
 
                                 {/* Pet Image with blend-multiply */}
-                                <div className="relative w-28 h-28 md:w-34 md:h-34 self-end shrink-0 pointer-events-none mix-blend-multiply">
+                                <div className="relative w-24 h-28 xl:w-34 xl:h-34 self-end shrink-0 pointer-events-none mix-blend-multiply">
                                     <Image 
                                         src="/images/cat-dog.png" 
                                         alt="Home Visits"
                                         fill
+                                        sizes="(min-width: 1280px) 136px, 96px"
                                         className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
@@ -167,12 +176,12 @@ export function Services() {
                         </div>
 
                         {/* Bottom Row: 3 Compact Cards (24px radius) */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-7">
+                        <div className="grid flex-1 grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-7">
 
-                            {/* Card 4: Pet Food (Soft Warm Yellow) */}
+                            {/* Card 4: Pet Food */}
                             <Link 
                                 href="/shop"
-                                className="rounded-[1.5rem] bg-[#FFFBEB] border-[1.5px] border-[#F2D785] p-5 flex flex-col justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[180px] md:min-h-[195px]"
+                                className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
                                 <div className="relative z-10">
                                     <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
@@ -181,9 +190,7 @@ export function Services() {
                                     <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
                                         Premium nutrition for all pets
                                     </p>
-                                    <div className="w-8 h-8 rounded-full bg-white border-[1.5px] border-amber-300 text-amber-700 shadow-sm flex items-center justify-center transition-all group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 group-hover:scale-110 mt-3.5">
-                                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                                    </div>
+                                    <ServiceArrow />
                                 </div>
 
                                 {/* Product Bag Image with blend-multiply */}
@@ -192,15 +199,16 @@ export function Services() {
                                         src="/images/new-bag.png" 
                                         alt="Pet Food"
                                         fill
+                                        sizes="80px"
                                         className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </Link>
 
-                            {/* Card 5: Delivery (Soft Sky Blue) */}
+                            {/* Card 5: Delivery */}
                             <Link 
                                 href="/shop"
-                                className="rounded-[1.5rem] bg-[#EFF8FF] border-[1.5px] border-[#B5D9F8] p-5 flex flex-col justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[180px] md:min-h-[195px]"
+                                className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
                                 <div className="relative z-10">
                                     <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
@@ -209,9 +217,7 @@ export function Services() {
                                     <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
                                         Fast & fresh food delivery
                                     </p>
-                                    <div className="w-8 h-8 rounded-full bg-white border-[1.5px] border-sky-300 text-sky-600 shadow-sm flex items-center justify-center transition-all group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 group-hover:scale-110 mt-3.5">
-                                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                                    </div>
+                                    <ServiceArrow />
                                 </div>
 
                                 {/* Product Tin Image with blend-multiply */}
@@ -220,15 +226,16 @@ export function Services() {
                                         src="/images/new-tin.png" 
                                         alt="Delivery"
                                         fill
+                                        sizes="72px"
                                         className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>
                             </Link>
 
-                            {/* Card 6: Nutrition (Soft Lavender Purple) */}
+                            {/* Card 6: Nutrition */}
                             <Link 
                                 href="/services/nutrition"
-                                className="rounded-[1.5rem] bg-[#F7F2FF] border-[1.5px] border-[#D8BEF5] p-5 flex flex-col justify-between relative overflow-hidden shadow-[0_8px_24px_rgba(16,22,47,0.06)] hover:shadow-[0_16px_32px_rgba(16,22,47,0.12)] hover:-translate-y-1 transition-all duration-300 group min-h-[180px] md:min-h-[195px]"
+                                className={`${supportingCardStyle} rounded-[1.5rem] p-5 flex flex-col justify-between min-h-[180px] md:min-h-[195px]`}
                             >
                                 <div className="relative z-10">
                                     <h3 className="text-base md:text-lg font-black text-slate-900 tracking-tight leading-tight">
@@ -237,9 +244,7 @@ export function Services() {
                                     <p className="text-slate-600 text-xs font-medium leading-snug mt-1 max-w-[130px]">
                                         Expert dietary advice
                                     </p>
-                                    <div className="w-8 h-8 rounded-full bg-white border-[1.5px] border-purple-300 text-purple-600 shadow-sm flex items-center justify-center transition-all group-hover:bg-purple-600 group-hover:text-white group-hover:border-purple-600 group-hover:scale-110 mt-3.5">
-                                        <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-                                    </div>
+                                    <ServiceArrow />
                                 </div>
 
                                 {/* Cat Image with blend-multiply */}
@@ -248,6 +253,7 @@ export function Services() {
                                         src="/images/cat-cat.png" 
                                         alt="Nutrition"
                                         fill
+                                        sizes="80px"
                                         className="object-contain object-bottom group-hover:scale-105 transition-transform duration-500"
                                     />
                                 </div>

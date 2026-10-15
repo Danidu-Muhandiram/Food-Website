@@ -4,7 +4,8 @@ import { useState } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { Star, ArrowRight } from "lucide-react"
+import { Star, ArrowRight, ShoppingBag, Check } from "lucide-react"
+import { useCart } from "@/lib/cart"
 
 // Product Data
 const CATEGORIES = ["All Food", "Dog Food", "Bird Food", "Rabbit Food", "Fish Food", "Cat Food"]
@@ -12,7 +13,7 @@ const CATEGORIES = ["All Food", "Dog Food", "Bird Food", "Rabbit Food", "Fish Fo
 const PRODUCTS = [
     {
         id: 1,
-        name: "Whole Paws, Whole Paws, Dry Chicken And Oats Recipe",
+        name: "Whole Paws Dry Chicken And Oats Recipe",
         category: "Cat Food",
         price: 36.99,
         rating: 4.9,
@@ -73,6 +74,8 @@ const PRODUCTS = [
 
 export function PopularProducts() {
     const [activeCategory, setActiveCategory] = useState("All Food")
+    const [cartMessage, setCartMessage] = useState("")
+    const { items, addItem } = useCart()
 
     const filteredProducts = activeCategory === "All Food"
         ? PRODUCTS
@@ -96,10 +99,10 @@ export function PopularProducts() {
                         </p>
                     </div>
                     <div className="flex-shrink-0">
-                        <Button className="bg-primary hover:bg-primary/90 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base">
+                        <Link href="/shop" className="inline-flex items-center justify-center bg-primary hover:bg-primary/90 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">
                             See All Products
                             <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
+                        </Link>
                     </div>
                 </div>
 
@@ -108,12 +111,14 @@ export function PopularProducts() {
                     {CATEGORIES.map((cat) => (
                         <button
                             key={cat}
+                            type="button"
+                            aria-pressed={activeCategory === cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`
                                 px-4 md:px-5 py-2 rounded-full border-2 font-bold text-xs md:text-sm transition-all duration-300
                                 ${activeCategory === cat
-                                    ? 'bg-[#E85C24] border-[#E85C24] text-white shadow-lg shadow-orange-200'
-                                    : 'bg-white border-slate-200 text-slate-600 hover:border-[#E85C24] hover:text-[#E85C24]'
+                                    ? 'bg-primary border-primary text-white shadow-sm'
+                                    : 'bg-white border-slate-200 text-slate-600 hover:border-primary hover:text-primary'
                                 }
                             `}
                         >
@@ -123,55 +128,62 @@ export function PopularProducts() {
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-4 lg:gap-5">
-                    {filteredProducts.map((product) => (
-                        <div key={product.id} className="group bg-[#F8F8F8] rounded-[1.5rem] p-3 border border-slate-100 hover:border-[#E85C24]/30 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-500 flex flex-col">
+                <p role="status" aria-live="polite" aria-atomic="true" className="sr-only">{cartMessage}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
+                    {filteredProducts.map((product) => {
+                        const quantity = items.find(item => item.id === product.id)?.quantity ?? 0
+                        return (
+                            <article key={product.id} className="group flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-3 shadow-[0_4px_20px_-12px_rgba(15,23,42,0.16)] transition-[border-color,box-shadow,translate] duration-300 hover:border-primary/30 hover:shadow-[0_16px_40px_-16px_rgba(15,23,42,0.18)] motion-safe:hover:-translate-y-1 focus-within:border-primary/40">
 
-                            {/* Image Containe*/}
-                            <div className="relative aspect-[4/3] bg-white rounded-[1.2rem] mb-3 overflow-hidden flex items-center justify-center">
-                                {product.badge && (
-                                    <div className={`absolute top-3 left-3 z-10 ${product.badgeColor} text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider`}>
-                                        {product.badge}
-                                    </div>
-                                )}
-                                <Image
-                                    src={product.image}
-                                    alt={product.name}
-                                    fill
-                                    className="object-contain p-2 group-hover:scale-110 transition-transform duration-500"
-                                />
-                            </div>
-
-                            {/* Content */}
-                            <div className="space-y-2 flex-1 flex flex-col px-1">
-                                <div className="flex justify-between items-start">
-                                    <span className="text-[#E85C24] text-[10px] font-bold uppercase tracking-wide bg-white/60 px-2 py-0.5 rounded-full">{product.category}</span>
-                                    <div className="flex items-center gap-1 text-amber-400 text-xs font-black">
-                                        <Star className="w-3.5 h-3.5 fill-current" />
-                                        <span>{product.rating}</span>
-                                    </div>
+                                {/* A consistent image stage keeps every card aligned. */}
+                                <div className="relative mb-4 aspect-[4/3] overflow-hidden rounded-2xl bg-[#F8F7F4]">
+                                    {product.badge && (
+                                        <div className={`absolute top-3 left-3 z-10 ${product.badgeColor} text-white text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase tracking-wider`}>
+                                            {product.badge}
+                                        </div>
+                                    )}
+                                    <Image
+                                        src={product.image}
+                                        alt={product.name}
+                                        fill
+                                        sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                                        className="object-contain p-5 transition-transform duration-500 motion-safe:group-hover:scale-105"
+                                    />
                                 </div>
 
-                                <h3 className="font-bold text-slate-700 text-base leading-tight line-clamp-2 min-h-[2.5rem] group-hover:text-[#E85C24] transition-colors">
-                                    {product.name}
-                                </h3>
+                                {/* Content */}
+                                <div className="flex flex-1 flex-col px-1 pb-1">
+                                    <span className="text-xs font-bold uppercase tracking-wider text-primary">{product.category}</span>
+                                    <h3 title={product.name} className="mt-2 line-clamp-2 min-h-12 text-base font-bold leading-6 text-secondary">
+                                        {product.name}
+                                    </h3>
 
-                                <div className="pt-2 mt-auto flex items-center justify-between">
-                                    <div className="flex flex-col">
-                                        <div className="flex items-baseline gap-2">
-                                            <span className="text-xl font-black text-[#E85C24]">${product.price.toFixed(2)}</span>
+                                    <div className="mt-2 flex items-center gap-1.5 text-sm text-slate-600" aria-label={`Rated ${product.rating} out of 5`}>
+                                        <Star aria-hidden="true" className="h-4 w-4 fill-amber-400 text-amber-400" />
+                                        <span className="font-bold text-secondary">{product.rating.toFixed(1)}</span><span>/ 5</span>
+                                    </div>
+                                    <div className="mt-auto pt-4">
+                                        <div className="flex min-h-8 flex-wrap items-baseline gap-x-2">
+                                            <span className="text-2xl font-black tracking-tight text-secondary">${product.price.toFixed(2)}</span>
                                             {product.originalPrice && (
-                                                <span className="text-xs font-bold text-slate-400 line-through">${product.originalPrice.toFixed(2)}</span>
+                                                <span className="text-sm text-slate-400 line-through"><span className="sr-only">Previously </span>${product.originalPrice.toFixed(2)}</span>
                                             )}
                                         </div>
+                                        <Button
+                                            type="button"
+                                            onClick={() => { addItem(product); setCartMessage(`${product.name} added to your cart. Quantity ${quantity + 1}.`) }}
+                                            aria-label={`Add ${product.name} to cart${quantity ? `, ${quantity} already in cart` : ""}`}
+                                            className="mt-3 h-11 w-full gap-2 rounded-xl bg-primary text-sm font-bold text-white hover:bg-secondary focus-visible:ring-primary"
+                                        >
+                                            {quantity ? <Check aria-hidden="true" className="h-4 w-4" /> : <ShoppingBag aria-hidden="true" className="h-4 w-4" />}
+                                            Add to Cart
+                                            {quantity > 0 && <span className="ml-auto rounded-full bg-white/20 px-2 py-0.5 text-xs" aria-hidden="true">{quantity}</span>}
+                                        </Button>
                                     </div>
-                                    <Link href="/shop" className="w-9 h-9 rounded-full bg-white text-slate-900 border border-slate-200 flex items-center justify-center hover:bg-[#E85C24] hover:border-[#E85C24] hover:text-white hover:scale-110 transition-all duration-300 shadow-md">
-                                        <ArrowRight className="w-4 h-4" />
-                                    </Link>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            </article>
+                        )
+                    })}
                 </div>
 
             </div>

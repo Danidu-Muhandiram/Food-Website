@@ -6,27 +6,11 @@ import { Footer } from "@/components/layout/Footer"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
-import { ShoppingBag, Trash2, Minus, Plus, ArrowLeft, Check, Sparkles } from "lucide-react"
+import { ShoppingBag, Trash2, Minus, Plus, ArrowLeft, Check } from "lucide-react"
+import { useCart } from "@/lib/cart"
 
 export default function CartPage() {
-    const [cartItems, setCartItems] = useState([
-        {
-            id: 1,
-            name: "Whole Paws Dry Chicken And Oats Recipe",
-            category: "Cat Food",
-            price: 36.99,
-            quantity: 1,
-            image: "/images/new-bag.png"
-        },
-        {
-            id: 2,
-            name: "Meow Mix Tender Centers Dry Cat Food, Salmon",
-            category: "Cat Food",
-            price: 30.20,
-            quantity: 2,
-            image: "/images/new-tin.png"
-        }
-    ])
+    const { items: cartItems, changeQuantity, removeItem, clearCart } = useCart()
 
     const [checkoutCompleted, setCheckoutCompleted] = useState(false)
 
@@ -39,22 +23,16 @@ export default function CartPage() {
 
     // Handlers
     const handleQtyChange = (id: number, delta: number) => {
-        setCartItems(prev => prev.map(item => {
-            if (item.id === id) {
-                const newQty = item.quantity + delta
-                return newQty > 0 ? { ...item, quantity: newQty } : item
-            }
-            return item
-        }))
+        changeQuantity(id, delta)
     }
 
     const handleRemoveItem = (id: number) => {
-        setCartItems(prev => prev.filter(item => item.id !== id))
+        removeItem(id)
     }
 
     const handleCheckout = () => {
         setCheckoutCompleted(true)
-        setCartItems([])
+        clearCart()
     }
 
     return (
@@ -103,7 +81,7 @@ export default function CartPage() {
                             </div>
                             <h3 className="text-2xl font-black text-secondary">Your Cart is Empty</h3>
                             <p className="text-slate-500 text-sm leading-relaxed">
-                                You haven't added any products to your shopping cart yet. Browse our shop for premium organic treats and health foods.
+                                You haven&apos;t added any products to your shopping cart yet. Browse our shop for premium organic treats and health foods.
                             </p>
                             <Button asChild className="w-full h-12 bg-primary hover:bg-primary/95 text-white font-bold rounded-2xl shadow-lg">
                                 <Link href="/shop">
