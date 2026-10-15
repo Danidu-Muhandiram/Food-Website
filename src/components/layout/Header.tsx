@@ -53,25 +53,79 @@ export function Header() {
     const searchPanelRef = useRef<HTMLDivElement>(null)
     const searchInputRef = useRef<HTMLInputElement>(null)
     const searchBackdropRef = useRef<HTMLDivElement>(null)
+    const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
+    const mobileMenuRef = useRef<HTMLDivElement>(null)
+    const restoreMobileFocusRef = useRef(false)
+    const accountRef = useRef<HTMLDivElement>(null)
+    const overlayOpen = searchOpen || mobileMenuOpen || authModalOpen
 
-    // ESC key listener to close auth modal or search bar
+    // Keep scrolling locked when moving directly between overlays.
+    useEffect(() => {
+        if (!overlayOpen) return
+        const previousOverflow = document.body.style.overflow
+        document.body.style.overflow = "hidden"
+        return () => { document.body.style.overflow = previousOverflow }
+    }, [overlayOpen])
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
                 setAuthModalOpen(false)
                 setSearchOpen(false)
+                setMobileMenuOpen(false)
+                setAuthOpen(false)
                 if (searchOpen) searchTriggerRef.current?.focus()
+                if (mobileMenuOpen) restoreMobileFocusRef.current = true
+                if (authOpen) accountRef.current?.querySelector("button")?.focus()
             }
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [searchOpen])
+    }, [searchOpen, mobileMenuOpen, authOpen])
+
+    useEffect(() => {
+        if (!mobileMenuOpen) {
+            if (restoreMobileFocusRef.current) mobileMenuTriggerRef.current?.focus()
+            restoreMobileFocusRef.current = false
+            return
+        }
+        const panel = mobileMenuRef.current
+        panel?.querySelector<HTMLAnchorElement>('[aria-current], nav a')?.focus()
+        const handleTab = (event: KeyboardEvent) => {
+            if (event.key !== "Tab" || !panel) return
+            const controls = Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+            const first = controls[0]
+            const last = controls[controls.length - 1]
+            if (event.shiftKey && (document.activeElement === first || !panel.contains(document.activeElement))) {
+                event.preventDefault()
+                last?.focus()
+            } else if (!event.shiftKey && (document.activeElement === last || !panel.contains(document.activeElement))) {
+                event.preventDefault()
+                first?.focus()
+            }
+        }
+        const desktop = window.matchMedia("(min-width: 768px)")
+        const handleResize = () => { if (desktop.matches) setMobileMenuOpen(false) }
+        document.addEventListener("keydown", handleTab)
+        desktop.addEventListener("change", handleResize)
+        return () => {
+            document.removeEventListener("keydown", handleTab)
+            desktop.removeEventListener("change", handleResize)
+        }
+    }, [mobileMenuOpen])
+
+    useEffect(() => {
+        if (!authOpen) return
+        const handleOutsidePointer = (event: PointerEvent) => {
+            if (event.target instanceof Node && !accountRef.current?.contains(event.target)) setAuthOpen(false)
+        }
+        document.addEventListener("pointerdown", handleOutsidePointer)
+        return () => document.removeEventListener("pointerdown", handleOutsidePointer)
+    }, [authOpen])
 
     useEffect(() => {
         if (!searchOpen) return
         searchInputRef.current?.focus()
-        const previousOverflow = document.body.style.overflow
-        document.body.style.overflow = "hidden"
 
         const handleOutsidePointer = (event: PointerEvent) => {
             const target = event.target as Node | null
@@ -83,7 +137,6 @@ export function Header() {
         document.addEventListener("pointerdown", handleOutsidePointer)
         return () => {
             document.removeEventListener("pointerdown", handleOutsidePointer)
-            document.body.style.overflow = previousOverflow
         }
     }, [searchOpen])
 
@@ -113,7 +166,7 @@ export function Header() {
 
     return (
         <>
-            <header className="absolute top-0 left-0 z-50 w-full pt-4 md:pt-6">
+            <header inert={mobileMenuOpen} className="absolute top-0 left-0 z-50 w-full pt-4 md:pt-6">
                 <div className="container relative z-20 mx-auto px-4 md:px-8 flex items-center justify-between">
                     
                     {/* Logo */}
@@ -124,7 +177,7 @@ export function Header() {
                     </Link>
 
                     {/* Desktop navigation */}
-                    <nav aria-label="Main navigation" className="hidden md:flex items-center gap-8 text-white/90 text-sm font-bold">
+                    <nav aria-label="Main navigation" className="hidden md:flex items-center gap-4 lg:gap-8 text-white/90 text-sm font-bold">
                         {NAV_LINKS.map(({ href, label }) => (
                             <Link
                                 key={href}
@@ -139,7 +192,7 @@ export function Header() {
                     </nav>
 
                     {/* Icons Actions */}
-                    <div className="flex items-center gap-1 sm:gap-3 md:gap-5 text-white relative z-50">
+                    <div className="flex shrink-0 items-center gap-0 sm:gap-2 lg:gap-4 text-white relative z-50">
                         
                         {/* Search Icon Trigger */}
                         <button 
@@ -165,11 +218,14 @@ export function Header() {
                         </Link>
 
                         {/* Account User Trigger */}
-                        <div className="relative">
+                        <div ref={accountRef} className="relative">
                             <button 
                                 onClick={() => { setAuthOpen(!authOpen); setMobileMenuOpen(false); setSearchOpen(false); }}
-                                className="hover:text-accent transition-colors p-2 focus:outline-none flex items-center gap-1.5 cursor-pointer"
-                                aria-label="Toggle User Settings"
+                                type="button"
+                                className="flex h-11 min-w-11 items-center justify-center gap-1.5 rounded-xl transition-colors hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer"
+                                aria-label="Account options"
+                                aria-expanded={authOpen}
+                                aria-controls={authOpen ? "header-account-options" : undefined}
                             >
                                 <User className="w-5 h-5" />
                                 {isLoggedIn && (
@@ -181,7 +237,7 @@ export function Header() {
 
                             {/* Dropdown Menu */}
                             {authOpen && (
-                                <div className="absolute right-0 mt-3 w-56 rounded-2xl bg-white text-secondary p-2 shadow-2xl border border-slate-100 animate-in fade-in slide-in-from-top-2 duration-200">
+                                <div id="header-account-options" className="absolute right-0 mt-3 w-56 rounded-2xl bg-white text-secondary p-2 shadow-2xl border border-slate-100 animate-in fade-in slide-in-from-top-2 duration-200">
                                     {isLoggedIn ? (
                                         <div className="space-y-1">
                                             <div className="px-3 py-2 border-b border-slate-50">
@@ -227,9 +283,14 @@ export function Header() {
 
                         {/* Mobile Hamburguer Menu Trigger */}
                         <button 
+                            ref={mobileMenuTriggerRef}
+                            type="button"
                             onClick={() => { setMobileMenuOpen(!mobileMenuOpen); setAuthOpen(false); setSearchOpen(false); }}
-                            className="md:hidden hover:text-accent transition-colors p-2 focus:outline-none cursor-pointer"
-                            aria-label="Toggle Mobile Menu"
+                            className="flex h-11 w-11 items-center justify-center rounded-xl md:hidden hover:bg-white/10 hover:text-accent transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer"
+                            aria-label="Open navigation menu"
+                            aria-expanded={mobileMenuOpen}
+                            aria-controls={mobileMenuOpen ? "mobile-navigation-panel" : undefined}
+                            aria-haspopup="dialog"
                         >
                             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>
@@ -266,24 +327,34 @@ export function Header() {
 
             {/* Mobile Navigation Panel Drawer */}
             {mobileMenuOpen && (
-                <div className="fixed inset-0 z-40 bg-secondary pt-24 px-6 flex flex-col justify-between animate-in slide-in-from-right duration-300">
-                    <nav aria-label="Mobile navigation" className="flex flex-col gap-6 text-white text-2xl font-black">
+                <div ref={mobileMenuRef} id="mobile-navigation-panel" role="dialog" aria-modal="true" aria-label="Navigation menu" className="fixed inset-0 z-[60] flex h-dvh flex-col overflow-y-auto overscroll-contain bg-secondary px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-4 text-white sm:px-6">
+                    <div className="flex shrink-0 items-center justify-between gap-2">
+                        <Link href="/" onClick={() => setMobileMenuOpen(false)} className="rounded text-xl font-black tracking-tight focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">PET SHOP</Link>
+                        <div className="flex items-center">
+                            <button type="button" aria-label="Search the shop" onClick={() => { setMobileMenuOpen(false); setSearchOpen(true) }} className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"><Search aria-hidden="true" className="h-5 w-5" /></button>
+                            <Link href="/cart" onClick={() => setMobileMenuOpen(false)} aria-label={`View cart, ${cartCount} ${cartCount === 1 ? "item" : "items"}`} className="relative flex h-11 w-11 items-center justify-center rounded-xl hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
+                                <ShoppingBag aria-hidden="true" className="h-5 w-5" />
+                                {cartCount > 0 && <span aria-hidden="true" className="absolute right-0 top-0 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold leading-none text-secondary">{cartCount > 99 ? "99+" : cartCount}</span>}
+                            </Link>
+                            <button type="button" aria-label="Close navigation menu" onClick={() => { restoreMobileFocusRef.current = true; setMobileMenuOpen(false) }} className="flex h-11 w-11 items-center justify-center rounded-xl hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent"><X aria-hidden="true" className="h-6 w-6" /></button>
+                        </div>
+                    </div>
+                    <nav aria-label="Mobile navigation" className="my-6 flex shrink-0 flex-col gap-1 text-xl font-bold">
                         {NAV_LINKS.map(({ href, mobileLabel }) => (
                             <Link
                                 key={href}
                                 href={href}
                                 onClick={() => setMobileMenuOpen(false)}
                                 aria-current={isActiveLink(href) ? (pathname === href ? "page" : "location") : undefined}
-                                className="inline-flex min-h-11 items-center gap-3 self-start transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent motion-reduce:transition-none"
+                                className={`flex min-h-13 items-center justify-between gap-3 rounded-xl px-4 transition-colors hover:bg-white/5 hover:text-accent focus-visible:outline-2 focus-visible:outline-accent motion-reduce:transition-none ${isActiveLink(href) ? "bg-white/10 text-accent" : "text-white/90"}`}
                             >
                                 {mobileLabel}
-                                {isActiveLink(href) && <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" />}
+                                {isActiveLink(href) ? <span aria-hidden="true" className="h-2 w-2 rounded-full bg-accent" /> : <ArrowRight aria-hidden="true" className="h-4 w-4 text-white/35" />}
                             </Link>
                         ))}
                     </nav>
 
-                    <div className="pb-12 space-y-6">
-                        <div className="border-t border-white/10 pt-6">
+                    <div className="mt-auto shrink-0 border-t border-white/10 pt-5">
                             {isLoggedIn ? (
                                 <button 
                                     onClick={() => { handleLogout(); setMobileMenuOpen(false); }}
@@ -293,23 +364,23 @@ export function Header() {
                                     <span>Sign Out</span>
                                 </button>
                             ) : (
-                                <div className="grid grid-cols-2 gap-4">
-                                    <Button 
+                                <div className="grid grid-cols-2 gap-3">
+                                    <button
+                                        type="button"
                                         onClick={() => { setAuthModalOpen(true); setAuthMode("login"); setMobileMenuOpen(false); }}
-                                        variant="outline" 
-                                        className="h-12 border-white/20 text-white hover:bg-white/10 rounded-2xl font-bold"
+                                        className="h-12 rounded-xl border border-white/25 bg-white/5 text-sm font-bold text-white transition-colors hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                                     >
                                         Sign In
-                                    </Button>
-                                    <Button 
+                                    </button>
+                                    <button
+                                        type="button"
                                         onClick={() => { setAuthModalOpen(true); setAuthMode("signup"); setMobileMenuOpen(false); }}
-                                        className="h-12 bg-primary text-white hover:bg-primary/90 rounded-2xl font-bold shadow-md"
+                                        className="h-12 rounded-xl bg-primary text-sm font-bold text-white transition-colors hover:bg-primary/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                                     >
                                         Sign Up
-                                    </Button>
+                                    </button>
                                 </div>
                             )}
-                        </div>
                     </div>
                 </div>
             )}

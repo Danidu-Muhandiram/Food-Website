@@ -26,7 +26,7 @@ export function PopularProducts() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             Popular Products
                         </h2>
-                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 id="popular-products-heading" className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
                             Our <span className="text-primary">Most Popular</span> Products
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl">
@@ -50,7 +50,7 @@ export function PopularProducts() {
                             aria-pressed={activeCategory === cat}
                             onClick={() => setActiveCategory(cat)}
                             className={`
-                                px-4 md:px-5 py-2 rounded-full border-2 font-bold text-xs md:text-sm transition-all duration-300
+                                min-h-11 px-4 md:px-5 py-2 rounded-full border-2 font-bold text-xs md:text-sm transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary
                                 ${activeCategory === cat
                                     ? 'bg-primary border-primary text-white shadow-sm'
                                     : 'bg-white border-slate-200 text-slate-600 hover:border-primary hover:text-primary'
@@ -62,10 +62,15 @@ export function PopularProducts() {
                     ))}
                 </div>
 
-                {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
-                    {filteredProducts.map(product => <ProductCard key={product.id} product={product} />)}
-                </div>
+                {filteredProducts.length > 1 && <p id="popular-products-swipe-hint" className="mb-3 flex items-center gap-2 text-xs font-medium text-slate-500 sm:hidden">Swipe to explore<ArrowRight aria-hidden="true" className="h-3.5 w-3.5" /></p>}
+                {/* Swipe through home-page highlights on phones; keep the desktop grid. */}
+                <ul key={activeCategory} aria-labelledby="popular-products-heading" aria-describedby={filteredProducts.length > 1 ? "popular-products-swipe-hint" : undefined} tabIndex={0} className="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-4 overflow-x-auto overscroll-x-contain px-4 pt-1 pb-5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 lg:grid-cols-3 lg:gap-5 xl:grid-cols-4">
+                    {filteredProducts.map(product => (
+                        <li key={product.id} className="w-[82vw] max-w-[320px] min-w-0 shrink-0 snap-start sm:w-auto sm:max-w-none">
+                            <ProductCard product={product} imageSizes="(min-width: 1280px) 25vw, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, (min-width: 390px) 320px, 82vw" />
+                        </li>
+                    ))}
+                </ul>
 
             </div>
         </section>
