@@ -1,252 +1,170 @@
+import Link from "next/link"
+import { Apple, ArrowRight, Check, ChevronRight, Clock, HeartHandshake, HeartPulse, House, MessageSquare, PawPrint, Pill, Scissors } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { 
-    HeartPulse, 
-    Pill, 
-    Scissors, 
-    Apple, 
-    Home, 
-    ShieldCheck, 
-    ArrowRight, 
-    Star, 
-    Award, 
-    Clock, 
-    Smile,
-    MessageSquare
-} from "lucide-react"
 
 const SERVICES = [
     {
         id: "vet-care",
-        title: "Veterinary Support",
-        description: "Certified healthcare consultations, routine vaccinations, diagnostics, and customized treatment plans for your pets.",
+        title: "Veterinary Care",
+        description: "Routine checkups and vaccination visits for every stage of life.",
         icon: HeartPulse,
-        colorClass: "bg-red-50 text-red-500",
-        badge: "Certified Vets",
-        link: "/services/vet-care"
+        label: "Featured care",
+        benefits: ["Routine health checkups", "Vaccination visits"],
+        action: "Explore vet care",
+        href: "/services/vet-care",
+        featured: true,
     },
     {
         id: "pharmacy",
         title: "Pet Pharmacy",
-        description: "Direct prescription fulfillment, pain relief, premium vitamins, flea/tick care, and overall healthcare supplies.",
+        description: "Medicines, supplements, and health essentials for their daily routine.",
         icon: Pill,
-        colorClass: "bg-sky-50 text-sky-500",
-        badge: "FDA Approved",
-        link: "/services/pharmacy"
+        label: "Everyday essentials",
+        benefits: ["Medicines and supplements", "Flea and tick essentials"],
+        action: "Explore pharmacy",
+        href: "/services/pharmacy",
+        featured: false,
     },
     {
         id: "grooming",
         title: "Grooming & Spa",
-        description: "Soothing bath treatments, detailed style trimming, custom coat brushing, nail trimming, and dental hygiene care.",
+        description: "Baths, coat care, and finishing touches for a fresh, comfortable pet.",
         icon: Scissors,
-        colorClass: "bg-amber-50 text-amber-500",
-        badge: "Popular",
-        link: "/services/grooming"
+        label: "Fresh and happy",
+        benefits: ["Baths and coat care", "Nail trimming"],
+        action: "Explore grooming",
+        href: "/services/grooming",
+        featured: false,
     },
     {
         id: "nutrition",
-        title: "Nutrition Counsel",
-        description: "Professional meal planners assisting in raw diets, allergen analysis, age-based feeding cycles, and weight regulation.",
+        title: "Diet & Nutrition",
+        description: "Feeding guidance that fits their age, preferences, and everyday needs.",
         icon: Apple,
-        colorClass: "bg-emerald-50 text-emerald-600",
-        badge: "Expert Advice",
-        link: "/services/nutrition"
+        label: "Better mealtimes",
+        benefits: ["Everyday feeding guidance", "Meal planning support"],
+        action: "Explore nutrition",
+        href: "/services/nutrition",
+        featured: false,
     },
     {
         id: "boarding",
         title: "Daycare & Boarding",
-        description: "Safe overnight lodging, group play sessions, interactive toys, outdoor walks, and constant supervisor attendance.",
-        icon: Home,
-        colorClass: "bg-purple-50 text-purple-500",
-        badge: "24/7 Monitored",
-        link: "/services/boarding"
+        description: "Daytime company and overnight stays when you need a helping hand.",
+        icon: House,
+        label: "Stay and play",
+        benefits: ["Daytime care and company", "Overnight stays"],
+        action: "Explore boarding",
+        href: "/services/boarding",
+        featured: false,
     },
     {
         id: "custom-care",
-        title: "Special Custom Care",
-        description: "Have a unique care requirement or exotic pet request? Our team can coordinate tailored home care programs just for you.",
-        icon: Smile,
-        colorClass: "bg-blue-50 text-blue-500",
-        badge: "Flexible",
-        link: "/contact"
-    }
+        title: "Personalized Care",
+        description: "Tell us what makes your pet unique. We can help you find the next step.",
+        icon: HeartHandshake,
+        label: "Made for your pet",
+        benefits: ["Talk through your needs", "Find the right next step"],
+        action: "Talk to our team",
+        href: "/contact",
+        featured: false,
+    },
 ]
+
+const CARE_VALUES = [
+    { icon: PawPrint, title: "Care that fits", description: "Explore support for different pets, ages, and everyday needs." },
+    { icon: HeartHandshake, title: "Clear next steps", description: "Read the service details before choosing the care that feels right." },
+    { icon: Clock, title: "Everyday support", description: "Bring nutrition, grooming, and wellbeing into one care routine." },
+    { icon: MessageSquare, title: "Here to help", description: "Start with a question when you are unsure which service to choose." },
+]
+
+const eyebrow = "text-xs font-bold uppercase tracking-[0.12em] text-[#B93800] md:text-sm"
+const sectionHeading = "mt-3 text-4xl font-black leading-tight tracking-tight text-secondary md:text-[40px]"
+const primaryLink = "group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-secondary px-5 text-sm font-bold text-white transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary md:text-base"
+const arrowClass = "h-4 w-4 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none"
 
 export default function ServicesPage() {
     return (
-        <main className="min-h-screen bg-background flex flex-col">
+        <main className="flex min-h-screen flex-col bg-white">
             <Header />
 
-            {/* Hero Section */}
-            <section className="relative bg-secondary text-white pt-36 pb-24 overflow-hidden">
-                <div className="absolute inset-0 opacity-10 pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(circle, #fff 2px, transparent 2px)', backgroundSize: '40px 40px' }}>
-                </div>
-                <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-3xl"></div>
-
-                <div className="container mx-auto px-4 md:px-8 relative z-10 text-center space-y-6">
-                    <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-accent text-sm font-bold tracking-wider">
-                        <Star className="w-4 h-4 fill-current" />
-                        <span>OUR CARE SERVICES</span>
+            <section aria-labelledby="services-title" className="relative isolate overflow-hidden bg-primary pb-10 pt-28 text-white md:pb-12" style={{ backgroundImage: "radial-gradient(ellipse at 75% 40%, #ff762a 0%, #ff5710 42%, #ff4d00 78%)" }}>
+                <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-32 h-80 w-80 rounded-full border-[32px] border-white/[0.04]" />
+                <div className="container relative mx-auto px-4 text-center md:px-8">
+                    <nav aria-label="Breadcrumb" className="mb-4 flex items-center justify-center gap-2 text-xs font-semibold text-white/90 md:text-sm">
+                        <Link href="/" className="rounded hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">Home</Link>
+                        <ChevronRight aria-hidden="true" className="h-3.5 w-3.5" />
+                        <span aria-current="page">Services</span>
+                    </nav>
+                    <h1 id="services-title" className="text-[clamp(2.5rem,4.4vw,3.75rem)] font-black leading-[1.07] tracking-[-0.04em]">A little care.<br /><span className="text-secondary">A happier pet.</span></h1>
+                    <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/95 md:text-lg">From routine checkups to a fresh trim, find thoughtful care for every stage of your pet&apos;s life.</p>
+                    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+                        <Link href="#care-services" className={`${primaryLink} focus-visible:outline-white`}>Explore services<ArrowRight aria-hidden="true" className={arrowClass} /></Link>
+                        <Link href="/contact" className="inline-flex min-h-12 items-center justify-center rounded-2xl border border-white/40 px-5 text-sm font-bold text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white md:text-base">Help me choose</Link>
                     </div>
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight max-w-3xl mx-auto">
-                        Professional care tailored <br />
-                        to your <span className="text-primary relative inline-block">
-                            pet's needs
-                            <svg className="absolute w-full h-3 -bottom-1 left-0 text-white" viewBox="0 0 100 10" preserveAspectRatio="none">
-                                <path d="M0 5 Q 50 12 100 5" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.8" />
-                            </svg>
-                        </span>
-                    </h1>
-                    <p className="text-white/80 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-                        We offer a complete suite of services to ensure your companion lives a long, active, and perfectly healthy life.
-                    </p>
                 </div>
             </section>
 
-            {/* Why Choose Us / Services Intro */}
-            <section className="py-20 bg-orange-50/20">
+            <section id="care-services" aria-labelledby="care-services-title" className="scroll-mt-6 bg-[#fffaf3]/60 py-12 md:py-16">
                 <div className="container mx-auto px-4 md:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
-                        <div className="lg:col-span-1 space-y-6">
-                            <h2 className="text-primary font-bold tracking-widest uppercase text-sm">WHY CHOOSE US</h2>
-                            <h3 className="text-3xl md:text-4xl font-black text-secondary leading-tight">
-                                Setting new standards for pet wellness
-                            </h3>
-                            <p className="text-slate-600 text-base leading-relaxed">
-                                We believe in holistic pet health. From preventative healthcare to daily exercise and organic diets, we handle every stage of your pet's development with absolute transparency.
-                            </p>
-                        </div>
-
-                        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                            {/* Feature 1 */}
-                            <div className="flex gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                                <div className="w-12 h-12 rounded-2xl bg-orange-50 text-primary flex items-center justify-center flex-shrink-0">
-                                    <Award className="w-6 h-6" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="text-lg font-bold text-secondary">Expert Caregivers</h4>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        Licensed professionals and animal lovers trained to keep pets safe and comfortable.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Feature 2 */}
-                            <div className="flex gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                                <div className="w-12 h-12 rounded-2xl bg-sky-50 text-sky-500 flex items-center justify-center flex-shrink-0">
-                                    <ShieldCheck className="w-6 h-6" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="text-lg font-bold text-secondary">Fully Certified</h4>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        FDA-compliant pharmaceuticals, state-certified vets, and fully-insured daycare services.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Feature 3 */}
-                            <div className="flex gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                                <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
-                                    <Clock className="w-6 h-6" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="text-lg font-bold text-secondary">Flexible Booking</h4>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        Quickly schedule consultations, medicine deliveries, and daycare check-ins online.
-                                    </p>
-                                </div>
-                            </div>
-
-                            {/* Feature 4 */}
-                            <div className="flex gap-4 p-6 bg-white rounded-3xl border border-slate-100 shadow-sm">
-                                <div className="w-12 h-12 rounded-2xl bg-purple-50 text-purple-500 flex items-center justify-center flex-shrink-0">
-                                    <MessageSquare className="w-6 h-6" />
-                                </div>
-                                <div className="space-y-2">
-                                    <h4 className="text-lg font-bold text-secondary">Constant Updates</h4>
-                                    <p className="text-slate-600 text-sm leading-relaxed">
-                                        Stay informed with direct text reports, medical updates, and daycare play logs.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="mb-8 max-w-2xl">
+                        <p className={eyebrow}>Our care services</p>
+                        <h2 id="care-services-title" className={sectionHeading}>Find their kind of care.</h2>
+                        <p className="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">Explore everyday support and a little extra care. Each service has its own details to help you choose.</p>
+                    </div>
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+                        {SERVICES.map(({ id, title, description, icon: Icon, label, benefits, action, href, featured }) => (
+                            <article key={id} aria-labelledby={`service-${id}`} className="h-full min-w-0">
+                                <Link href={href} aria-labelledby={`service-${id}`} aria-describedby={`service-${id}-description`} className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border p-5 shadow-[0_4px_20px_-12px_rgba(15,23,42,0.12)] transition-[border-color,box-shadow,translate] duration-200 hover:border-primary/50 hover:shadow-[0_12px_28px_-12px_rgba(15,23,42,0.18)] motion-safe:hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary ${featured ? "border-[#E5C978] bg-[#FEF9E6]" : "border-stone-200 bg-white"}`}>
+                                    <div className="flex flex-wrap items-center justify-between gap-3">
+                                        <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl transition-colors duration-200 group-hover:bg-primary group-hover:text-white group-focus-visible:bg-primary group-focus-visible:text-white ${featured ? "bg-accent text-secondary" : "bg-orange-50 text-[#B93800]"}`}><Icon aria-hidden="true" className="h-5 w-5" /></span>
+                                        <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${featured ? "bg-accent/40 text-secondary" : "bg-slate-50 text-slate-600"}`}>{label}</span>
+                                    </div>
+                                    <h3 id={`service-${id}`} className="mt-4 text-xl font-bold leading-snug tracking-tight text-secondary">{title}</h3>
+                                    <p id={`service-${id}-description`} className="mt-2 text-sm leading-relaxed text-slate-600">{description}</p>
+                                    <ul className="mb-4 mt-3 flex flex-wrap gap-x-3 gap-y-1.5 text-xs font-medium leading-relaxed text-slate-600">
+                                        {benefits.map(benefit => <li key={benefit} className="flex items-start gap-1.5"><Check aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#B93800]" /><span>{benefit}</span></li>)}
+                                    </ul>
+                                    <div className={`mt-auto flex min-h-11 items-center justify-between gap-3 border-t pt-3 text-sm font-bold ${featured ? "border-[#E5C978]/50 text-[#B93800]" : "border-slate-100 text-secondary"}`}>
+                                        <span>{action}</span>
+                                        <span aria-hidden="true" className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors duration-200 group-hover:bg-secondary group-hover:text-white group-focus-visible:bg-secondary group-focus-visible:text-white ${featured ? "bg-primary text-white" : "bg-orange-50 text-[#B93800]"}`}><ArrowRight className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-safe:group-focus-visible:translate-x-0.5 motion-reduce:transition-none" /></span>
+                                    </div>
+                                </Link>
+                            </article>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Interactive Service Cards Grid */}
-            <section className="py-20 bg-white">
+            <section aria-labelledby="care-values-title" className="bg-white py-12 md:py-16">
                 <div className="container mx-auto px-4 md:px-8">
-                    <div className="text-center max-w-2xl mx-auto space-y-4 mb-16">
-                        <h2 className="text-primary font-bold tracking-widest uppercase text-sm">OUR SELECTION</h2>
-                        <h3 className="text-3xl md:text-5xl font-black text-secondary">What We Do</h3>
-                        <p className="text-slate-600 text-base leading-relaxed">
-                            Click on any service card below to view detailed plans, pricing comparisons, FAQ segments, and to schedule bookings.
-                        </p>
+                    <div className="mb-8 max-w-2xl">
+                        <p className={eyebrow}>A little more peace of mind</p>
+                        <h2 id="care-values-title" className={sectionHeading}>Good care, made simpler.</h2>
+                        <p className="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">A thoughtful approach to the everyday things that matter to you and your pet.</p>
                     </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {SERVICES.map((service) => {
-                            const IconComp = service.icon
-                            return (
-                                <div 
-                                    key={service.id} 
-                                    className="bg-[#F8F8F8] rounded-[2.5rem] p-8 border border-slate-100 hover:border-primary/20 hover:shadow-2xl hover:shadow-orange-500/5 transition-all duration-300 flex flex-col justify-between group"
-                                >
-                                    <div className="space-y-6">
-                                        <div className="flex justify-between items-center">
-                                            <div className={`w-14 h-14 rounded-2xl ${service.colorClass} flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                                                <IconComp className="w-7 h-7" />
-                                            </div>
-                                            <span className="text-slate-400 text-xs font-bold bg-white px-3 py-1 rounded-full border border-slate-100">
-                                                {service.badge}
-                                            </span>
-                                        </div>
-
-                                        <div className="space-y-3">
-                                            <h4 className="text-2xl font-black text-secondary group-hover:text-primary transition-colors">
-                                                {service.title}
-                                            </h4>
-                                            <p className="text-slate-600 text-sm leading-relaxed">
-                                                {service.description}
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div className="pt-8">
-                                        <Button asChild className="w-full h-12 rounded-2xl bg-white border border-slate-200 text-secondary hover:bg-primary hover:border-primary hover:text-white transition-all shadow-sm group-hover:shadow-md">
-                                            <Link href={service.link} className="flex items-center justify-center gap-2">
-                                                <span>Learn More</span>
-                                                <ArrowRight className="w-4 h-4" />
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        {CARE_VALUES.map(({ icon: Icon, title, description }) => (
+                            <div key={title} className="rounded-3xl border border-orange-100 bg-[#fffaf3] p-6">
+                                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-orange-100 text-[#B93800]"><Icon aria-hidden="true" className="h-5 w-5" /></span>
+                                <h3 className="mt-5 text-lg font-bold text-secondary">{title}</h3>
+                                <p className="mt-3 text-sm leading-relaxed text-slate-600">{description}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Custom CTA */}
-            <section className="py-24 bg-orange-50/30 text-center relative overflow-hidden">
-                <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-                <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-3xl space-y-8">
-                    <h3 className="text-4xl md:text-5xl font-black text-secondary leading-tight">
-                        Need a custom consultation?
-                    </h3>
-                    <p className="text-slate-600 text-lg leading-relaxed max-w-xl mx-auto">
-                        Speak directly with our care coordinators to formulate custom diet sheets, specialized vaccine calendars, or schedule group boarding plans.
-                    </p>
-                    <div className="flex justify-center">
-                        <Button asChild className="h-14 px-10 rounded-2xl bg-secondary text-white hover:bg-secondary/95 text-lg font-bold shadow-xl transition-all hover:scale-105 active:scale-95">
-                            <Link href="/contact">
-                                Speak to a Care Coordinator
-                            </Link>
-                        </Button>
+            <section aria-labelledby="services-cta-title" className="bg-white pb-10 md:pb-12">
+                <div className="container mx-auto px-4 md:px-8">
+                    <div className="flex flex-col gap-6 rounded-3xl border border-orange-100 bg-[#fffaf3] p-6 md:p-8 lg:flex-row lg:items-center lg:justify-between">
+                        <div className="max-w-xl">
+                            <p className={eyebrow}>Here for you both</p>
+                            <h2 id="services-cta-title" className="mt-2 text-2xl font-black leading-tight tracking-tight text-secondary md:text-3xl">Not sure where to start?</h2>
+                            <p className="mt-3 text-sm leading-relaxed text-slate-600 md:text-base">Tell us a little about your pet and the care you are looking for. We can help you find your next step.</p>
+                        </div>
+                        <Link href="/contact" className={`${primaryLink} self-start lg:shrink-0`}>Talk to our team<ArrowRight aria-hidden="true" className={arrowClass} /></Link>
                     </div>
                 </div>
             </section>
