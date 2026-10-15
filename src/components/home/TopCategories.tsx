@@ -45,7 +45,7 @@ export function TopCategories() {
                         <h2 className="text-slate-900 font-bold tracking-widest uppercase text-xs md:text-sm opacity-80">
                             Shop By Category
                         </h2>
-                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-[32px] md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                             Pet Product Category
                         </h2>
                         <p className="text-slate-800 text-sm md:text-base lg:text-base leading-relaxed opacity-80 line-clamp-2 md:line-clamp-none">
@@ -90,7 +90,7 @@ export function TopCategories() {
                         <div key={cat.id} className="min-w-[280px] md:min-w-[320px] lg:min-w-[300px] flex-shrink-0 snap-center group bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 h-[240px] md:h-[220px] relative overflow-hidden hover:shadow-xl hover:shadow-orange-900/10 transition-all duration-500 hover:-translate-y-2">
 
                             {/* Category Name */}
-                            <h3 className="text-xl md:text-2xl font-black text-slate-900 relative z-10 group-hover:text-[#E85C24] transition-colors">
+                            <h3 className="text-lg md:text-xl font-black text-slate-900 relative z-10 group-hover:text-[#E85C24] transition-colors">
                                 {cat.name}
                             </h3>
 

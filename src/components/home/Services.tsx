@@ -43,7 +43,7 @@ export function Services() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             OUR SERVICES
                         </h2>
-                        <h2 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 className="text-[32px] md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                             Complete <span className="text-primary relative inline-block">Pet Care</span> Solutions
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-xl">
@@ -77,7 +77,7 @@ export function Services() {
 
                             {/* Title & Description */}
                             <div>
-                                <h3 className="text-[28px] md:text-[32px] font-black text-slate-900 tracking-tight leading-tight">
+                                <h3 className="text-2xl md:text-[28px] font-black text-slate-900 tracking-tight leading-tight">
                                     Pet Doctor
                                 </h3>
                                 <p className="text-slate-600 text-sm md:text-base mt-2 leading-relaxed">

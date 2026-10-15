@@ -80,7 +80,7 @@ const CARE_VALUES = [
 ]
 
 const eyebrow = "text-xs font-bold uppercase tracking-[0.12em] text-[#B93800] md:text-sm"
-const sectionHeading = "mt-3 text-4xl font-black leading-tight tracking-tight text-secondary md:text-[40px]"
+const sectionHeading = "mt-3 text-[32px] font-black leading-tight tracking-tight text-secondary md:text-4xl"
 const primaryLink = "group inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-secondary px-5 text-sm font-bold text-white transition-colors hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary md:text-base"
 const arrowClass = "h-4 w-4 shrink-0 transition-transform duration-200 motion-safe:group-hover:translate-x-1 motion-safe:group-focus-visible:translate-x-1 motion-reduce:transition-none"
 

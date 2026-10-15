@@ -44,7 +44,7 @@ export function About() {
                     <div className="w-full md:w-1/2 space-y-6 text-center md:text-left">
                         <div className="space-y-3">
                             <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">About Us</h2>
-                            <h3 className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                            <h3 className="text-[32px] md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                                 We&apos;re just like you, <br />
                                 <span className="text-primary relative">
                                     pet lovers

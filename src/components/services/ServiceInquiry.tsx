@@ -8,7 +8,7 @@ const CONTACT_EMAIL = "hello@petshop.com"
 const fieldClass = "block min-h-12 w-full min-w-0 rounded-xl border border-slate-200 bg-slate-50/50 px-3 py-3 text-base text-secondary placeholder:text-slate-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:text-sm"
 const labelClass = "block text-sm font-semibold text-secondary"
 const eyebrowClass = "text-xs font-bold uppercase tracking-[0.12em] text-[#B93800] md:text-sm"
-const headingClass = "mt-3 text-4xl font-black leading-tight tracking-tight text-secondary md:text-[40px]"
+const headingClass = "mt-3 text-[32px] font-black leading-tight tracking-tight text-secondary md:text-4xl"
 
 function localDate(date = new Date()) {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`

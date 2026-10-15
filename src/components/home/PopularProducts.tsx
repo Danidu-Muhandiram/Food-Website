@@ -26,7 +26,7 @@ export function PopularProducts() {
                         <h2 className="text-secondary font-bold tracking-widest uppercase text-xs md:text-sm">
                             Popular Products
                         </h2>
-                        <h2 id="popular-products-heading" className="text-4xl md:text-[40px] font-black text-slate-900 tracking-tight leading-tight">
+                        <h2 id="popular-products-heading" className="text-[32px] md:text-4xl font-black text-slate-900 tracking-tight leading-tight">
                             Our <span className="text-primary">Most Popular</span> Products
                         </h2>
                         <p className="text-slate-600 text-sm md:text-base leading-relaxed max-w-2xl">

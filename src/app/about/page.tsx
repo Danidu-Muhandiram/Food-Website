@@ -26,7 +26,7 @@ const CARE_LINKS = [
 
 const primaryLink = "group inline-flex min-h-12 items-center justify-center gap-3 rounded-2xl bg-secondary px-6 text-sm md:text-base font-bold text-white shadow-lg shadow-black/10 transition-[background-color,transform] hover:bg-slate-800 motion-safe:hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none"
 const eyebrow = "text-xs md:text-sm font-bold uppercase tracking-[0.12em] text-[#B93800]"
-const sectionHeading = "mt-3 text-4xl md:text-[40px] font-black leading-tight tracking-tight text-secondary"
+const sectionHeading = "mt-3 text-[32px] md:text-4xl font-black leading-tight tracking-tight text-secondary"
 
 export default function AboutPage() {
     return (

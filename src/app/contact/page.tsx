@@ -77,7 +77,7 @@ export default function ContactPage() {
                 <div className="container mx-auto px-4 md:px-8">
                     <div className="mb-7 max-w-2xl">
                         <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#B93800] md:text-sm">Get in touch</p>
-                        <h2 id="contact-help-title" className="mt-3 text-4xl font-black leading-tight tracking-tight text-secondary md:text-[40px]">How can we help?</h2>
+                        <h2 id="contact-help-title" className="mt-3 text-[32px] font-black leading-tight tracking-tight text-secondary md:text-4xl">How can we help?</h2>
                         <p className="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">Tell us what is on your mind. We can help you find the right product, service, or next step.</p>
                     </div>
                     <div className="grid items-start gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:gap-8">

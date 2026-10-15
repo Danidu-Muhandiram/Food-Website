@@ -1,13 +1,13 @@
 import Link from "next/link"
-import { Apple, ArrowLeft, ArrowRight, Check, ChevronDown, ChevronRight, ClipboardList, HeartPulse, House, MessageSquare, Pill, Scissors } from "lucide-react"
+import { Apple, ArrowRight, Check, ChevronDown, ChevronRight, ClipboardList, HeartPulse, House, MessageSquare, Pill, Scissors } from "lucide-react"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
-import { CARE_SERVICES, type ServiceDefinition } from "@/lib/services"
+import type { ServiceDefinition } from "@/lib/services"
 import { ServiceInquiry } from "./ServiceInquiry"
 
 const SERVICE_ICONS = { "vet-care": HeartPulse, grooming: Scissors, pharmacy: Pill, nutrition: Apple, boarding: House }
 const eyebrowClass = "text-xs font-bold uppercase tracking-[0.12em] text-[#B93800] md:text-sm"
-const headingClass = "mt-3 text-4xl font-black leading-tight tracking-tight text-secondary md:text-[40px]"
+const headingClass = "mt-3 text-[32px] font-black leading-tight tracking-tight text-secondary md:text-4xl"
 const focusClass = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
 
 export function ServiceDetailPage({ service }: { service: ServiceDefinition }) {
@@ -77,20 +77,6 @@ export function ServiceDetailPage({ service }: { service: ServiceDefinition }) {
                 </div>
             </section>
 
-            <section aria-labelledby="related-services-title" className="bg-[#fffaf3]/60 py-10 md:py-12">
-                <div className="container mx-auto px-4 md:px-8">
-                    <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-                        <h2 id="related-services-title" className="text-2xl font-black tracking-tight text-secondary md:text-3xl">A little more care.</h2>
-                        <Link href="/services" className={`inline-flex min-h-11 items-center gap-2 rounded-lg text-sm font-bold text-[#B93800] ${focusClass}`}><ArrowLeft aria-hidden="true" className="h-4 w-4" />All services</Link>
-                    </div>
-                    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-                        {Object.values(CARE_SERVICES).filter(other => other.id !== service.id).map(other => {
-                            const OtherIcon = SERVICE_ICONS[other.id]
-                            return <Link key={other.id} href={`/services/${other.id}`} className={`group flex min-w-0 items-center gap-3 rounded-2xl border border-stone-200 bg-white p-4 text-secondary transition-colors hover:border-primary/40 hover:bg-orange-50/50 ${focusClass}`}><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-[#B93800]"><OtherIcon aria-hidden="true" className="h-5 w-5" /></span><span className="flex-1 text-sm font-bold">{other.title}</span><ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0 text-[#B93800] transition-transform motion-safe:group-hover:translate-x-1 motion-reduce:transition-none" /></Link>
-                        })}
-                    </div>
-                </div>
-            </section>
             <Footer />
         </main>
     )
