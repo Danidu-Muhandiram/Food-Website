@@ -21,9 +21,9 @@ const SERVICES = [
 ]
 
 const focusClass = "focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-const linkClass = `inline-block py-1 text-[13px] leading-relaxed text-slate-300 transition-colors hover:text-white hover:underline hover:decoration-primary hover:underline-offset-4 ${focusClass}`
-const headingClass = "mb-3 inline-block border-b-2 border-primary pb-1 text-sm font-bold"
-const iconLinkClass = `flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-colors hover:bg-white/10 hover:text-white ${focusClass}`
+const linkClass = `inline-block py-1 text-[13px] leading-relaxed text-slate-300 transition-colors hover:text-orange-300 focus-visible:text-orange-300 ${focusClass}`
+const headingClass = "mb-4 text-base font-bold tracking-wide text-white"
+const iconLinkClass = `flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-300 transition-colors hover:border-orange-400/30 hover:bg-orange-400/10 hover:text-orange-300 focus-visible:text-orange-300 ${focusClass}`
 
 function handleSubscribe(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -65,11 +65,11 @@ export function Footer() {
                         <h2 id="footer-contact" className={headingClass}>Contact Info</h2>
                         <address className="space-y-3 text-[13px] not-italic leading-relaxed text-slate-300">
                             <div className="flex items-start gap-2">
-                                <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                                <Link href="/contact" className={`hover:text-white ${focusClass}`}>123 Paw Print Lane, Animal City</Link>
+                                <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-orange-400" />
+                                <Link href="/contact" className={`transition-colors hover:text-orange-300 focus-visible:text-orange-300 ${focusClass}`}>123 Paw Print Lane, Animal City</Link>
                             </div>
-                            <a href="tel:+15551234567" className={`flex items-center gap-2 hover:text-white ${focusClass}`}><Phone aria-hidden="true" className="h-4 w-4 shrink-0 text-primary" /><span>+1 (555) 123-4567</span></a>
-                            <a href="mailto:hello@petshop.com" className={`flex items-center gap-2 hover:text-white ${focusClass}`}><Mail aria-hidden="true" className="h-4 w-4 shrink-0 text-primary" /><span className="break-all">hello@petshop.com</span></a>
+                            <a href="tel:+15551234567" className={`flex items-center gap-2 transition-colors hover:text-orange-300 focus-visible:text-orange-300 ${focusClass}`}><Phone aria-hidden="true" className="h-4 w-4 shrink-0 text-orange-400" /><span>+1 (555) 123-4567</span></a>
+                            <a href="mailto:hello@petshop.com" className={`flex items-center gap-2 transition-colors hover:text-orange-300 focus-visible:text-orange-300 ${focusClass}`}><Mail aria-hidden="true" className="h-4 w-4 shrink-0 text-orange-400" /><span className="break-all">hello@petshop.com</span></a>
                         </address>
                     </section>
 

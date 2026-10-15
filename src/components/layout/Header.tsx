@@ -1,8 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
-import Image from "next/image"
 import { usePathname, useRouter } from "next/navigation"
 import { 
     Search, 
@@ -10,11 +9,11 @@ import {
     User, 
     Menu, 
     X, 
-    Lock, 
     Sparkles, 
     LogOut,
     Settings,
-    History
+    History,
+    ArrowRight
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -47,6 +46,10 @@ export function Header() {
 
     // Search query state
     const [searchQuery, setSearchQuery] = useState("")
+    const searchTriggerRef = useRef<HTMLButtonElement>(null)
+    const searchPanelRef = useRef<HTMLDivElement>(null)
+    const searchInputRef = useRef<HTMLInputElement>(null)
+    const searchBackdropRef = useRef<HTMLDivElement>(null)
 
     // ESC key listener to close auth modal or search bar
     useEffect(() => {
@@ -54,11 +57,32 @@ export function Header() {
             if (e.key === "Escape") {
                 setAuthModalOpen(false)
                 setSearchOpen(false)
+                if (searchOpen) searchTriggerRef.current?.focus()
             }
         }
         window.addEventListener("keydown", handleKeyDown)
         return () => window.removeEventListener("keydown", handleKeyDown)
-    }, [])
+    }, [searchOpen])
+
+    useEffect(() => {
+        if (!searchOpen) return
+        searchInputRef.current?.focus()
+        const previousOverflow = document.body.style.overflow
+        document.body.style.overflow = "hidden"
+
+        const handleOutsidePointer = (event: PointerEvent) => {
+            const target = event.target as Node | null
+            if (target && !searchPanelRef.current?.contains(target) && !searchTriggerRef.current?.contains(target)) {
+                setSearchOpen(false)
+                if (target === searchBackdropRef.current) searchTriggerRef.current?.focus()
+            }
+        }
+        document.addEventListener("pointerdown", handleOutsidePointer)
+        return () => {
+            document.removeEventListener("pointerdown", handleOutsidePointer)
+            document.body.style.overflow = previousOverflow
+        }
+    }, [searchOpen])
 
     // Handlers
     const handleAuthSubmit = (e: React.FormEvent) => {
@@ -87,7 +111,7 @@ export function Header() {
     return (
         <>
             <header className="absolute top-0 left-0 z-50 w-full pt-4 md:pt-6">
-                <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
+                <div className="container relative z-20 mx-auto px-4 md:px-8 flex items-center justify-between">
                     
                     {/* Logo */}
                     <Link href="/" className="flex items-center gap-2 group relative z-50">
@@ -116,9 +140,13 @@ export function Header() {
                         
                         {/* Search Icon Trigger */}
                         <button 
+                            ref={searchTriggerRef}
+                            type="button"
                             onClick={() => { setSearchOpen(!searchOpen); setMobileMenuOpen(false); setAuthOpen(false); }}
-                            className="hover:text-accent transition-colors p-2 focus:outline-none cursor-pointer"
-                            aria-label="Toggle Search Bar"
+                            className="flex h-11 w-11 items-center justify-center rounded-xl transition-colors hover:bg-white/10 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent cursor-pointer"
+                            aria-label="Search the shop"
+                            aria-expanded={searchOpen}
+                            aria-controls={searchOpen ? "header-search-panel" : undefined}
                         >
                             <Search className="w-5 h-5" />
                         </button>
@@ -135,7 +163,7 @@ export function Header() {
                         {/* Account User Trigger */}
                         <div className="relative">
                             <button 
-                                onClick={() => { setAuthOpen(!authOpen); setMobileMenuOpen(false); }}
+                                onClick={() => { setAuthOpen(!authOpen); setMobileMenuOpen(false); setSearchOpen(false); }}
                                 className="hover:text-accent transition-colors p-2 focus:outline-none flex items-center gap-1.5 cursor-pointer"
                                 aria-label="Toggle User Settings"
                             >
@@ -195,7 +223,7 @@ export function Header() {
 
                         {/* Mobile Hamburguer Menu Trigger */}
                         <button 
-                            onClick={() => { setMobileMenuOpen(!mobileMenuOpen); setAuthOpen(false); }}
+                            onClick={() => { setMobileMenuOpen(!mobileMenuOpen); setAuthOpen(false); setSearchOpen(false); }}
                             className="md:hidden hover:text-accent transition-colors p-2 focus:outline-none cursor-pointer"
                             aria-label="Toggle Mobile Menu"
                         >
@@ -205,28 +233,30 @@ export function Header() {
                     </div>
                 </div>
 
-                {/* Normal Search Bar Overlay (Slides down without lists) */}
+                {/* Keep search inside a compact panel below the navigation. */}
                 {searchOpen && (
-                    <div className="absolute top-full left-0 w-full bg-secondary/95 backdrop-blur-md border-y border-white/10 p-4 animate-in slide-in-from-top-4 duration-300">
-                        <form onSubmit={handleSearchSubmit} className="container mx-auto px-4 md:px-8 max-w-2xl relative">
-                            <input 
-                                type="text"
-                                placeholder="Search our premium foods and accessories..."
-                                value={searchQuery}
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full h-12 bg-white/10 text-white placeholder-white/50 border border-white/20 rounded-2xl pl-12 pr-12 text-sm focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
-                                autoFocus
-                            />
-                            <Search className="absolute left-7 top-4 text-white/50 w-5 h-5" />
-                            <button 
-                                type="button" 
-                                onClick={() => setSearchOpen(false)}
-                                className="absolute right-7 top-3.5 text-white/50 hover:text-white p-1 cursor-pointer"
-                            >
-                                <X className="w-5 h-5" />
-                            </button>
-                        </form>
-                    </div>
+                    <>
+                        <div ref={searchBackdropRef} aria-hidden="true" className="fixed inset-0 z-10 bg-slate-950/35 backdrop-blur-[3px]" />
+                        <div className="absolute left-0 top-full z-30 mt-3 w-full px-4 md:px-8">
+                            <div ref={searchPanelRef} id="header-search-panel" onBlurCapture={event => { if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget) && !searchTriggerRef.current?.contains(event.relatedTarget)) setSearchOpen(false) }} className="mx-auto max-h-[calc(100dvh-96px)] w-full max-w-2xl overflow-y-auto rounded-3xl border border-slate-200 bg-white p-4 text-secondary shadow-[0_20px_60px_-16px_rgba(15,23,42,0.3)] sm:p-5 md:max-h-[calc(100dvh-112px)]">
+                                <div className="mb-4 flex items-start justify-between gap-3">
+                                    <div className="min-w-0">
+                                        <label htmlFor="header-search-input" className="block text-lg font-bold tracking-tight">Find something they&apos;ll love</label>
+                                        <p id="header-search-description" className="mt-1 text-sm leading-relaxed text-slate-500">Search food, treats, toys, and more.</p>
+                                    </div>
+                                    <button type="button" onClick={() => { setSearchOpen(false); searchTriggerRef.current?.focus() }} aria-label="Close search" className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-100 hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"><X aria-hidden="true" className="h-5 w-5" /></button>
+                                </div>
+                                <form role="search" aria-label="Search shop products" onSubmit={handleSearchSubmit} className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5 transition-colors focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/15">
+                                    <Search aria-hidden="true" className="ml-2 h-5 w-5 shrink-0 text-slate-400" />
+                                    <input ref={searchInputRef} id="header-search-input" aria-describedby="header-search-description" name="query" type="search" enterKeyHint="search" autoComplete="off" placeholder="Search products..." value={searchQuery} onChange={event => setSearchQuery(event.target.value)} className="h-11 min-w-0 flex-1 bg-transparent text-base text-secondary placeholder:text-slate-400 focus:outline-none" />
+                                    <button type="submit" disabled={!searchQuery.trim()} aria-label="Search products" className="inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-3 text-sm font-bold text-white transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary disabled:cursor-not-allowed disabled:opacity-40"><span className="hidden sm:inline">Search</span><ArrowRight aria-hidden="true" className="h-4 w-4" /></button>
+                                </form>
+                                <div className="mt-2 flex justify-end">
+                                    <Link href="/shop" onClick={() => { setSearchOpen(false); setSearchQuery("") }} className="inline-flex min-h-11 items-center gap-1.5 rounded-lg text-sm font-semibold text-[#B93800] hover:text-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">Browse all products<ArrowRight aria-hidden="true" className="h-3.5 w-3.5" /></Link>
+                                </div>
+                            </div>
+                        </div>
+                    </>
                 )}
             </header>
 
@@ -315,7 +345,7 @@ export function Header() {
                             <div className="space-y-4">
                                 {authMode === "signup" && (
                                     <div className="space-y-1.5">
-                                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Your Pet's Name</label>
+                                        <label className="text-xs font-bold text-slate-600 uppercase tracking-wide">Your Pet&apos;s Name</label>
                                         <Input 
                                             required
                                             type="text" 
@@ -358,7 +388,7 @@ export function Header() {
                             <div className="text-center text-xs font-medium text-slate-500 pt-2">
                                 {authMode === "login" ? (
                                     <span>
-                                        Don't have an account?{" "}
+                                        Don&apos;t have an account?{" "}
                                         <button 
                                             type="button"
                                             onClick={() => setAuthMode("signup")}
