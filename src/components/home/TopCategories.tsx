@@ -2,6 +2,7 @@
 
 import { useRef } from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -12,7 +13,6 @@ const CATEGORIES = [
     { id: "bird-food", name: "Bird Food", image: "/images/cat-bird.png" },
     { id: "fish-food", name: "Fish Food", image: "/images/cat-fish.png" },
     { id: "rabbit-food", name: "Rabbit Food", image: "/images/cat-rabbit.png" },
-    { id: "reptile-food", name: "Reptile Food", image: "/images/cat-dog.png" },
 ]
 
 export function TopCategories() {
@@ -58,6 +58,7 @@ export function TopCategories() {
                         <div className="flex items-center gap-2 mr-2">
                             <Button
                                 onClick={() => scroll('left')}
+                                aria-label="Previous categories"
                                 variant="outline"
                                 size="icon"
                                 className="w-10 h-10 rounded-full bg-white/20 border-2 border-slate-900/10 hover:bg-white/40 hover:border-slate-900/30 text-slate-900 backdrop-blur-sm transition-all"
@@ -66,6 +67,7 @@ export function TopCategories() {
                             </Button>
                             <Button
                                 onClick={() => scroll('right')}
+                                aria-label="Next categories"
                                 variant="outline"
                                 size="icon"
                                 className="w-10 h-10 rounded-full bg-white/20 border-2 border-slate-900/10 hover:bg-white/40 hover:border-slate-900/30 text-slate-900 backdrop-blur-sm transition-all"
@@ -74,10 +76,10 @@ export function TopCategories() {
                             </Button>
                         </div>
 
-                        <Button className="bg-slate-900 hover:bg-slate-800 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base whitespace-nowrap">
-                            See All Category
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
+                        <Link href="/shop" className="inline-flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-slate-900 bg-slate-900 hover:bg-slate-800 text-white font-bold h-10 md:h-12 px-6 md:px-8 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-105 text-sm md:text-base whitespace-nowrap">
+                            See All Categories
+                            <ArrowRight aria-hidden="true" className="ml-2 w-4 h-4" />
+                        </Link>
                     </div>
                 </div>
 
@@ -87,7 +89,7 @@ export function TopCategories() {
                     className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden -mx-4 px-4 md:mx-0 md:px-0"
                 >
                     {CATEGORIES.map((cat) => (
-                        <div key={cat.id} className="min-w-[280px] md:min-w-[320px] lg:min-w-[300px] flex-shrink-0 snap-center group bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 h-[240px] md:h-[220px] relative overflow-hidden hover:shadow-xl hover:shadow-orange-900/10 transition-all duration-500 hover:-translate-y-2">
+                        <Link key={cat.id} href={`/shop?category=${encodeURIComponent(cat.name)}`} aria-label={`Shop ${cat.name}`} className="focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-slate-900 min-w-[280px] md:min-w-[320px] lg:min-w-[300px] flex-shrink-0 snap-center group bg-white rounded-[1.5rem] md:rounded-[2rem] p-4 md:p-5 h-[240px] md:h-[220px] relative overflow-hidden hover:shadow-xl hover:shadow-orange-900/10 transition-all duration-500 hover:-translate-y-2">
 
                             {/* Category Name */}
                             <h3 className="text-lg md:text-xl font-black text-slate-900 relative z-10 group-hover:text-[#E85C24] transition-colors">
@@ -106,7 +108,7 @@ export function TopCategories() {
 
                             {/* Hover overlay effect */}
                             <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-orange-50/0 group-hover:to-orange-50/30 transition-all duration-500"></div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
