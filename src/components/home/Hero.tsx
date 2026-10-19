@@ -4,6 +4,10 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Cat, Dog, Heart, PawPrint } from "lucide-react"
+import { PRODUCTS } from "@/lib/products"
+
+const featuredDogFood = PRODUCTS.find(product => product.id === 106)!
+const featuredCatFood = PRODUCTS.find(product => product.id === 102)!
 
 const PET_VARIANTS = {
     dog: {
@@ -13,13 +17,7 @@ const PET_VARIANTS = {
         badge: ["More happy", "tail wags."],
         category: "Dog Food",
         cta: "Shop Dog Food",
-        product: {
-            title: "Roasted Chicken",
-            subtitle: "Adult Dog Food",
-            image: "/images/new-bag.png",
-            price: 26.99,
-            query: "Roasted Chicken",
-        },
+        product: featuredDogFood,
     },
     cat: {
         label: "Cats",
@@ -28,13 +26,7 @@ const PET_VARIANTS = {
         badge: ["More purrs.", "More joy."],
         category: "Cat Food",
         cta: "Shop Cat Food",
-        product: {
-            title: "Salmon Recipe",
-            subtitle: "Adult Cat Food",
-            image: "/images/hero-cat-food.png",
-            price: 30.20,
-            query: "Salmon",
-        },
+        product: featuredCatFood,
     },
 } as const
 
@@ -203,15 +195,15 @@ export function Hero() {
                                 <path d="M32 82Q50 88 68 82" opacity="0.5" />
                             </svg>
                         </div>
-                        <Link href={`/shop?query=${encodeURIComponent(pet.product.query)}`} className="group relative z-10 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-[#fffaf3] p-3 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none md:absolute md:-bottom-3 md:right-0 md:w-[320px] md:max-w-full md:gap-4 md:rounded-3xl md:p-4 lg:-right-6 xl:-right-[108px]">
+                        <Link href={`/shop?query=${encodeURIComponent(pet.product.name)}`} className="group relative z-10 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-[#fffaf3] p-3 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none md:absolute md:-bottom-3 md:right-0 md:w-[320px] md:max-w-full md:gap-4 md:rounded-3xl md:p-4 lg:-right-6 xl:-right-[108px]">
                             <div className="relative h-20 w-14 shrink-0 md:h-[150px] md:w-[94px]">
                                 {PET_TYPES.map(type => (
-                                    <Image key={type} src={PET_VARIANTS[type].product.image} alt={activePet === type ? `${pet.product.title} ${pet.product.subtitle} pack` : ""} fill sizes="(max-width: 767px) 56px, 94px" loading="eager" className={`object-contain transition-opacity duration-300 motion-reduce:transition-none ${activePet === type ? "opacity-100" : "opacity-0"}`} />
+                                    <Image key={type} src={PET_VARIANTS[type].product.image} alt={activePet === type ? pet.product.name : ""} fill sizes="(max-width: 767px) 56px, 94px" loading="eager" className={`rounded-xl bg-white object-contain transition-opacity duration-300 motion-reduce:transition-none ${activePet === type ? "opacity-100" : "opacity-0"}`} />
                                 ))}
                             </div>
                             <div key={activePet} className="hero-content-enter min-w-0 flex-1 text-secondary">
-                                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary md:text-xs">On the menu</p>
-                                <h2 className="text-sm font-bold leading-snug md:mt-1 md:text-base">{pet.product.title}<br />{pet.product.subtitle}</h2>
+                                <p className="text-[11px] font-bold uppercase tracking-[0.12em] text-primary md:text-xs">Demo price</p>
+                                <h2 className="text-sm font-bold leading-snug md:mt-1 md:text-base">{pet.product.name}<br />{pet.product.packSize ?? pet.product.category}</h2>
                                 <div className="mt-2 flex items-center justify-between gap-2 md:mt-3"><span className="text-xl font-black tracking-tight md:text-2xl">${pet.product.price.toFixed(2)}</span><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary text-white shadow-md transition-[transform,background-color] duration-200 group-hover:bg-primary group-focus-visible:bg-primary motion-safe:group-hover:scale-105 motion-reduce:transition-none md:h-11 md:w-11"><ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-0.5 motion-reduce:transition-none md:h-5 md:w-5" /></span></div>
                             </div>
                         </Link>

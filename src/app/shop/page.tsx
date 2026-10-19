@@ -7,7 +7,7 @@ import { ChevronRight, PawPrint, Search, ShoppingBag, SlidersHorizontal, X } fro
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { ProductCard } from "@/components/products/ProductCard"
-import { PRODUCTS } from "@/lib/products"
+import { PRODUCTS, CATALOG_DEMO_NOTE } from "@/lib/products"
 
 const CATEGORIES = [
     { value: "All", label: "All pets" },
@@ -122,6 +122,7 @@ function ShopPageContent() {
                                     </select>
                                 </div>
                             </div>
+                            <p className="mb-4 text-xs leading-relaxed text-slate-500">{CATALOG_DEMO_NOTE}</p>
                             {hasFilters && (
                                 <div aria-label="Active filters" className="mb-5 flex flex-wrap gap-2">
                                     {selectedCategory !== "All" && <button type="button" onClick={() => updateFilters({ category: "All" })} aria-label={`Remove ${selectedCategory} filter`} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-orange-200 bg-white px-3 text-sm text-secondary hover:bg-orange-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">{activeCategory.label}<X aria-hidden="true" className="h-3.5 w-3.5" /></button>}

@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { ProductCard } from "@/components/products/ProductCard"
-import { PRODUCTS } from "@/lib/products"
+import { PRODUCTS, CATALOG_DEMO_NOTE } from "@/lib/products"
 
 // Keep the home-page filter order while sharing the shop's catalog and cards.
 const CATEGORIES = ["All Food", "Dog Food", "Bird Food", "Rabbit Food", "Fish Food", "Cat Food"]
@@ -41,6 +41,7 @@ export function PopularProducts() {
                     </div>
                 </div>
 
+                <p className="mb-4 text-xs leading-relaxed text-slate-500">{CATALOG_DEMO_NOTE}</p>
                 {/* Filters */}
                 <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
                     {CATEGORIES.map((cat) => (

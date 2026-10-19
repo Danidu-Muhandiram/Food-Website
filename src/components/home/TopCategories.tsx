@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button"
 // Categories Data details
 const CATEGORIES = [
     { id: "dog-food", name: "Dog Food", image: "/images/cat-dog.png" },
-    { id: "cat-food", name: "Cat Food", image: "/images/cat-cat.png" },
-    { id: "bird-food", name: "Bird Food", image: "/images/cat-bird.png" },
+    { id: "cat-food", name: "Cat Food", image: "/images/pets/tabby-kitten.png" },
+    { id: "bird-food", name: "Bird Food", image: "/images/pets/lovebird-cutout.png" },
     { id: "fish-food", name: "Fish Food", image: "/images/cat-fish.png" },
     { id: "rabbit-food", name: "Rabbit Food", image: "/images/cat-rabbit.png" },
 ]
@@ -102,7 +102,8 @@ export function TopCategories() {
                                     src={cat.image}
                                     alt={cat.name}
                                     fill
-                                    className="object-contain object-bottom right"
+                                    sizes="(min-width: 768px) 256px, 224px"
+                                    className="object-contain object-bottom-right"
                                 />
                             </div>
 

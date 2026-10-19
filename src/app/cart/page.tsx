@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, ChevronRight, HeartHandshake, Mail, Minus, Plus,
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { useCart, type CartItem } from "@/lib/cart"
+import { CATALOG_DEMO_NOTE } from "@/lib/products"
 
 const subscribeToHydration = () => () => {}
 const getClientSnapshot = () => true
@@ -61,6 +62,7 @@ export default function CartPage() {
     const inquiryBody = [
         "Hello Pet Shop,",
         "I would like to ask about these items:",
+        "Prices shown are demo values. Please confirm actual pricing.",
         "",
         ...cartItems.map((item, index) => `${index + 1}. ${item.name}\n${item.category} | Quantity: ${item.quantity}\n${money(Math.round(item.price * 100))} each | Item total: ${money(itemTotal(item))}\n`),
         `Items subtotal: ${money(subtotalCents)}`,
@@ -145,6 +147,7 @@ export default function CartPage() {
 
                             <aside aria-labelledby="cart-summary-title" className="min-w-0 rounded-3xl border border-orange-100 bg-[#fffaf3] p-5 lg:sticky lg:top-6">
                                 <h2 id="cart-summary-title" className="text-xl font-bold tracking-tight text-secondary">Cart summary</h2>
+                                <p className="mt-2 text-xs leading-relaxed text-slate-500">{CATALOG_DEMO_NOTE}</p>
                                 <dl className="mt-5 space-y-3 text-sm text-slate-600">
                                     <div className="flex items-center justify-between gap-3"><dt>Items</dt><dd className="font-semibold tabular-nums text-secondary">{cartCount}</dd></div>
                                     <div className="flex items-center justify-between gap-3"><dt>Delivery &amp; tax</dt><dd className="text-right">To be confirmed</dd></div>
