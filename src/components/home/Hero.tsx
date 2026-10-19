@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Cat, Dog, Heart, PawPrint } from "lucide-react"
-import { PRODUCTS } from "@/lib/products"
+import { PRODUCTS, productHref } from "@/lib/products"
 
 const featuredDogFood = PRODUCTS.find(product => product.id === 106)!
 const featuredCatFood = PRODUCTS.find(product => product.id === 102)!
@@ -195,7 +195,7 @@ export function Hero() {
                                 <path d="M32 82Q50 88 68 82" opacity="0.5" />
                             </svg>
                         </div>
-                        <Link href={`/shop?query=${encodeURIComponent(pet.product.name)}`} className="group relative z-10 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-[#fffaf3] p-3 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none md:absolute md:-bottom-3 md:right-0 md:w-[320px] md:max-w-full md:gap-4 md:rounded-3xl md:p-4 lg:-right-6 xl:-right-[108px]">
+                        <Link href={productHref(pet.product)} className="group relative z-10 flex w-full items-center gap-3 rounded-2xl border border-white/80 bg-[#fffaf3] p-3 shadow-[0_18px_50px_-16px_rgba(92,34,10,0.24)] transition-[translate,box-shadow] duration-300 ease-out hover:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] focus-visible:shadow-[0_24px_64px_-16px_rgba(92,34,10,0.22)] motion-safe:hover:-translate-y-1 motion-safe:focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary motion-reduce:transition-none md:absolute md:-bottom-3 md:right-0 md:w-[320px] md:max-w-full md:gap-4 md:rounded-3xl md:p-4 lg:-right-6 xl:-right-[108px]">
                             <div className="relative h-20 w-14 shrink-0 md:h-[150px] md:w-[94px]">
                                 {PET_TYPES.map(type => (
                                     <Image key={type} src={PET_VARIANTS[type].product.image} alt={activePet === type ? pet.product.name : ""} fill sizes="(max-width: 767px) 56px, 94px" loading="eager" className={`rounded-xl bg-white object-contain transition-opacity duration-300 motion-reduce:transition-none ${activePet === type ? "opacity-100" : "opacity-0"}`} />
