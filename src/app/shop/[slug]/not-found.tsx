@@ -4,7 +4,7 @@ import { Footer } from "@/components/layout/Footer"
 
 export default function ProductNotFound() {
     return (
-        <div className="flex min-h-screen flex-col bg-[#fffaf3]">
+        <main className="flex min-h-screen flex-col bg-[#fffaf3]">
             <Header />
             <div className="h-24 bg-primary" />
             <section className="container mx-auto flex flex-1 flex-col items-center justify-center px-4 py-16 text-center">
@@ -13,6 +13,6 @@ export default function ProductNotFound() {
                 <Link href="/shop" className="mt-6 inline-flex min-h-12 items-center justify-center rounded-xl bg-secondary px-6 font-bold text-white hover:bg-slate-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary">Back to shop</Link>
             </section>
             <Footer />
-        </div>
+        </main>
     )
 }

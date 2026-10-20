@@ -11,7 +11,7 @@ const CONTACT_DETAILS = [
     { id: "phone", icon: Phone, title: "Give us a call", text: "+1 (555) 123-4567", href: "tel:+15551234567" },
     { id: "email", icon: Mail, title: "Drop us an email", text: CONTACT_EMAIL, href: `mailto:${CONTACT_EMAIL}` },
     { id: "address", icon: MapPin, title: "Find us here", text: "123 Paw Print Lane, Animal City, AC 45678", href: undefined },
-    { id: "hours", icon: Clock, title: "Opening hours", text: "Mon?Sun: 8:00 AM?8:00 PM", href: undefined },
+    { id: "hours", icon: Clock, title: "Opening hours", text: "Mon-Sun: 8:00 AM-8:00 PM", href: undefined },
 ]
 const SUBJECTS = ["General inquiry", "Products & orders", "Veterinary care", "Pet pharmacy", "Grooming & spa", "Diet & nutrition", "Daycare & boarding"]
 const EMPTY_FORM = { name: "", email: "", phone: "", subject: SUBJECTS[0], message: "" }

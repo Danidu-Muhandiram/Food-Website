@@ -23,7 +23,7 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} font-sans antialiased min-h-screen flex flex-col bg-background text-foreground`}
       >
-        <main className="flex-1 w-full">{children}</main>
+        <div className="flex-1 w-full">{children}</div>
       </body>
     </html>
   );

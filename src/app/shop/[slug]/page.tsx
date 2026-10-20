@@ -32,7 +32,7 @@ export default async function ProductPage({ params }: Props) {
     const availability = product.availability === "in-stock" ? "In stock" : product.availability === "out-of-stock" ? "Out of stock" : "Availability to be confirmed"
 
     return (
-        <div className="flex min-h-screen flex-col bg-[#fffaf3]/60">
+        <main className="flex min-h-screen flex-col bg-[#fffaf3]/60">
             <Header />
             <div className="bg-primary pb-6 pt-28 text-white">
                 <nav aria-label="Breadcrumb" className="container mx-auto px-4 md:px-8">
@@ -79,6 +79,6 @@ export default async function ProductPage({ params }: Props) {
                 {related.length > 0 && <section aria-labelledby="related-products-title" className="mt-10"><h2 id="related-products-title" className="mb-5 text-2xl font-black tracking-tight text-secondary">More for your pet</h2><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{related.map(item => <ProductCard key={item.id} product={item} />)}</div></section>}
             </div>
             <Footer />
-        </div>
+        </main>
     )
 }
