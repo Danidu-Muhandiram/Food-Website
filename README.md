@@ -6,9 +6,7 @@ PET SHOP brings pet products and care services together in one easy-to-explore s
 
 ## Preview
 
-<video src="https://raw.githubusercontent.com/Danidu-Muhandiram/Food-Website/main/public/preview/petshop.webm" controls width="100%">
-  Your browser does not support embedded videos. [Watch the PET SHOP preview](https://github.com/Danidu-Muhandiram/Food-Website/blob/main/public/preview/petshop.webm).
-</video>
+![Animated preview of the PET SHOP website](https://raw.githubusercontent.com/Danidu-Muhandiram/Food-Website/main/public/preview/petshop.gif)
 
 > **Please note:** This project is under development. The website is not yet a complete online store, and some displayed product information is for preview purposes.
 
