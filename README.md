@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PET SHOP
 
-## Getting Started
+**A pet-care and pet-supplies shopping application for pet owners.**
 
-First, run the development server:
+PET SHOP brings pet products and care services together in one easy-to-explore storefront. Visitors can browse products for different kinds of pets, read product details, use a shopping cart, and learn about available care services.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Preview
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<video src="https://raw.githubusercontent.com/Danidu-Muhandiram/Food-Website/main/public/preview/petshop.webm" controls width="100%">
+  Your browser does not support embedded videos. [Watch the PET SHOP preview](https://github.com/Danidu-Muhandiram/Food-Website/blob/main/public/preview/petshop.webm).
+</video>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> **Please note:** This project is under development. The website is not yet a complete online store, and some displayed product information is for preview purposes.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contents
 
-## Learn More
+- [What you can do](#what-you-can-do)
+- [Products and services](#products-and-services)
+- [Development status](#development-status)
+- [Run the project](#run-the-project)
+- [Project layout](#project-layout)
 
-To learn more about Next.js, take a look at the following resources:
+## What you can do
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Explore the shop:** Browse a sample collection of pet food and supplies.
+- **View product details:** Open a product page for more information.
+- **Use the shopping cart:** Add products, change quantities, or remove items. Your cart is saved in your browser.
+- **Discover care services:** Read about care options and prepare an inquiry.
+- **Get in touch:** Visit the contact page or use an inquiry form to open a message in your email app.
+- **Learn about PET SHOP:** Visit the About page to learn more about the business.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Products and services
 
-## Deploy on Vercel
+The sample product collection includes food for:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Cats and dogs
+- Birds
+- Rabbits
+- Fish
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Services section covers:
+
+- Veterinary care
+- Grooming
+- Pet pharmacy
+- Diet and nutrition
+- Daycare and boarding
+
+## Development status
+
+The storefront, product browsing, product detail pages, and browser-based cart are in place. The project is still under development, so it is not ready to handle real online orders or confirmed service bookings.
+
+Checkout, customer accounts, live product availability, and booking workflows are not currently available. Product prices and ratings are sample values; contact the business to confirm current prices and availability.
+
+## Run the project
+
+### Requirements
+
+- [Node.js](https://nodejs.org/) and npm
+
+### Start the development server
+
+1. Clone the repository and open its folder:
+
+   ```bash
+   git clone https://github.com/Danidu-Muhandiram/Food-Website.git
+   cd Food-Website
+   ```
+
+2. Install the project packages:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the local development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Available commands
+
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Starts the local development server. |
+| `npm run build` | Creates a production build. |
+| `npm run start` | Runs the production build locally. |
+| `npm run lint` | Checks the code for lint errors. |
+
+## Project layout
+
+| Path | Purpose |
+| --- | --- |
+| `src/app/` | Website pages, including the shop, cart, services, About, and Contact pages. |
+| `src/components/` | Shared page sections and reusable interface components. |
+| `src/lib/` | Product, service, cart, and utility logic. |
+| `public/images/` | Product and pet images used on the website. |
